@@ -1,16 +1,23 @@
 # Human–agent UI experiments
 
-Prototypes for a goal-first agent workspace. Open any file in a browser; each is
-self-contained, no build step and no network calls.
+Prototypes for a goal-first agent workspace. Open `index.html` in a browser.
+No build step, no dependencies, no network calls.
 
-## Files
+```
+index.html              the prototype — start here
+src/
+  styles.css            all styling; the palette lives in :root
+  data.js               vocabulary, agents, and the three seeded goals
+  app.js                behaviour; expects data.js to have loaded first
+explorations/
+  ten-aesthetics.html   ten visual treatments of the same task queue
+  split-and-map.html    three ways to make "your move" prominent, plus ten map layouts
+docs/
+  concept-summary.md    the original model this was built from
+```
 
-| File | What it is |
-|---|---|
-| `goal-cockpit.html` | The working prototype. Overview, Flow and per-agent chat. |
-| `directions-split-and-map.html` | Three ways to make "your move" prominent, plus ten map layouts. |
-| `directions-ten-aesthetics.html` | Ten visual treatments of the same task queue. |
-| `concept-summary.md` | The original model this was built from. |
+Editing is meant to be obvious: change a colour in `src/styles.css`, change the
+seeded work in `src/data.js`, change how it behaves in `src/app.js`.
 
 ## The model
 
@@ -42,10 +49,10 @@ inherits everything the agents have worked out so far and carries on from there.
 - Three states, mutually exclusive and collectively exhaustive.
 - Plain language throughout: no branch, node, route, artifact, or proof-of-work.
 - No box carries a fill and a border of different colours.
-- No neutral greys. Secondary text is tinted plum; states are raspberry
-  (needs you), emerald (working), and near-black (completed).
+- No neutral greys anywhere. Secondary text is tinted plum. States are raspberry
+  (needs you), near-black (working), and emerald (completed).
 - Rules only where they separate something. Space does the rest.
-- Type is one family, Avenir Next, with weight and size carrying the hierarchy.
+- One typeface, Avenir Next, with weight and size carrying the hierarchy.
 
 ## Published
 

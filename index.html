@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Goal Cockpit Prototype</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <symbol id="g-you" viewBox="0 0 16 16">
+          <path d="M8 1.4 14.6 8 8 14.6 1.4 8Z" fill="#e0116b" />
+          <path d="M8 4.6v4.2M8 11.1v.1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+        <symbol id="g-motion" viewBox="0 0 16 16">
+          <path d="M4.1 2.1h7.8M4.1 13.9h7.8" fill="none" stroke="#2b0f1d" stroke-width="1.7" stroke-linecap="round" />
+          <path d="M5.3 2.9h5.4L8 7.6Z" fill="#2b0f1d" opacity=".3" />
+          <path d="M5.3 13.1h5.4L8 8.4Z" fill="#2b0f1d" />
+        </symbol>
+        <symbol id="g-done" viewBox="0 0 16 16">
+          <circle cx="8" cy="8" r="6.9" fill="#00a06b" />
+          <path d="m4.8 8.2 2.2 2.2 4.2-4.6" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="g-plus" viewBox="0 0 16 16"><path d="M8 3.2v9.6M3.2 8h9.6" /></symbol>
+        <symbol id="g-branch" viewBox="0 0 16 16">
+          <path d="M5 10.3V5.6" /><path d="M5 8.6c1.7 0 6-.4 6-2.9" />
+          <circle cx="5" cy="12.1" r="1.6" /><circle cx="11" cy="4.1" r="1.6" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="frame">
+    <div class="app">
+      <aside class="sidebar">
+        <div class="brand"><span class="mark"></span>Swathi’s workspace</div>
+        <input class="goal-search" id="goalSearch" placeholder="Search goals" aria-label="Search goals" />
+        <div class="side-head">
+          <p class="label">Active goals</p>
+          <button class="icon-add" id="addGoal" title="Add a goal" aria-label="Add a goal"><svg viewBox="0 0 16 16"><use href="#g-plus" /></svg></button>
+        </div>
+        <nav class="goals" id="goalList"></nav>
+        <p class="side-empty" id="sideEmpty" style="display:none">No goals match.</p>
+        <p class="archived">4 archived</p>
+      </aside>
+
+      <main>
+        <div class="topline">
+          <div class="crumbs">Goals <i>/</i> <span id="crumbGoal"></span><span id="crumbTail"></span></div>
+          <div class="view-toggle"><button class="active" data-view="cockpit">Overview</button><button data-view="map">Flow</button></div>
+        </div>
+        <p class="greeting" id="greeting"></p>
+        <h1 id="goalTitle"></h1>
+        <p class="subtitle" id="goalSubtitle"></p>
+
+        <div class="summary">
+          <button class="stat you" data-filter="you"><b id="decisionCount">0</b><span>needs you</span></button>
+          <button class="stat live" data-filter="motion"><b id="workCount">0</b><span>working</span></button>
+          <button class="stat settled" data-filter="complete"><b id="completeCount">0</b><span>done</span></button>
+          <div class="team" id="agentRoster"></div>
+        </div>
+
+        <section class="pane" id="cockpit">
+          <div id="decisionZone"></div>
+          <div id="workList"></div>
+        </section>
+
+        <section class="map-view" id="mapView">
+          <div class="flow">
+            <svg class="edge-layer" id="edgeLayer"></svg>
+            <div class="col"><p class="colhead label">Learn</p><div id="colLearn"></div></div>
+            <div class="col"><p class="colhead label">Decide</p><div id="colDecide"></div></div>
+            <div class="col"><p class="colhead label">Build</p><div id="colBuild"></div></div>
+          </div>
+          <aside class="panel">
+            <p class="p-state"><span id="panelGlyph"></span><span id="panelWord"></span></p>
+            <h2 id="nodeTitle"></h2>
+            <div id="panelMeter"></div>
+            <p class="copy" id="nodeCopy"></p>
+            <p class="p-why" id="nodeReason"></p>
+            <div id="panelDep"></div>
+            <div id="panelLatest"></div>
+            <div id="panelResult"></div>
+            <button class="panel-link p-add" id="branchFromNode">+ Add follow-up work</button>
+          </aside>
+        </section>
+
+        <section class="chat-view" id="chatView">
+          <div class="chat-top">
+            <span id="chatAvatar"></span>
+            <div class="chat-id"><h2 id="chatAgent"></h2><p id="chatContext"></p></div>
+          </div>
+          <div class="chat-thread" id="chatThread"></div>
+          <div class="chat-composer">
+            <input id="chatInput" placeholder="Tell them what to change…" />
+            <button class="primary" id="chatSend">Send</button>
+          </div>
+        </section>
+
+        <p class="credit">github: @swathidbhat</p>
+      </main>
+    </div>
+    </div>
+
+    <div class="toast-wrap" id="toasts"></div>
+
+    <div class="modal-backdrop" id="branchModal">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="branchTitle">
+        <div class="modal-top"><div><p class="label">Add work</p><h2 id="branchTitle">What do you want the agent to do?</h2></div><button class="close" data-close="branchModal">×</button></div>
+        <p id="branchSource" class="source"></p>
+        <p>It starts with everything the agents have worked out so far, then runs on its own, and stays visible on the goal.</p>
+        <input id="branchName" />
+        <p class="field-label label">What kind of work is it?</p>
+        <div class="choices" id="branchKinds">
+          <button class="choice selected" data-kind="Investigate"><b>Find something out</b><span>Look into a question before committing to anything.</span></button>
+          <button class="choice" data-kind="Decide"><b>Get a decision</b><span>Put a choice in front of someone.</span></button>
+          <button class="choice" data-kind="Create"><b>Make something</b><span>Produce a document, page, or draft.</span></button>
+        </div>
+        <div class="modal-footer"><button class="cancel" data-close="branchModal">Cancel</button><button class="primary" id="createBranch">Add it</button></div>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="proofModal">
+      <section class="modal wide" role="dialog" aria-modal="true" aria-labelledby="proofTitle">
+        <div class="modal-top"><div><p class="label">Completed work</p><h2 id="proofTitle"></h2></div><button class="close" data-close="proofModal">×</button></div>
+        <div class="tabs" id="proofTabs">
+          <button class="on" data-tab="result">Result</button>
+          <button data-tab="reasoning">Reasoning</button>
+          <button data-tab="sources">Sources</button>
+        </div>
+        <div class="tab-body" id="proofBody"></div>
+      </section>
+    </div>
+
+    <script src="src/data.js"></script>
+    <script src="src/app.js"></script>
+  </body>
+</html>
