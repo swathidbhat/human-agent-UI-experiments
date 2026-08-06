@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ten Aesthetic Directions</title>
+    <style>
+      :root {
+        --ink: #1b1a18;
+        --soft: #736d64;
+        --faint: #a8a196;
+        --rule: #e7e3da;
+        --paper: #fbfaf7;
+        --clay: #b0531f;
+        --moss: #4d6d42;
+        --stone: #8a8479;
+        --serif: ui-serif, "Iowan Old Style", Georgia, serif;
+        --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        --mono: ui-monospace, "SF Mono", Menlo, monospace;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+      .page { max-width: 1240px; padding: 72px 40px 100px; margin: 0 auto; }
+      header h1 { margin: 0; font-size: 40px; font-weight: 500; letter-spacing: -.035em; }
+      header p { max-width: 480px; margin: 12px 0 0; color: var(--soft); font-size: 15px; line-height: 1.6; }
+      .legend { display: flex; gap: 22px; margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--soft); font-size: 11px; letter-spacing: .04em; }
+      .legend i { display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; vertical-align: 1px; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 60px 48px; margin-top: 64px; }
+      .opt-head { display: flex; align-items: baseline; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--rule); }
+      .num { color: var(--faint); font-family: var(--mono); font-size: 11px; }
+      .opt-head h2 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+      .opt-head p { margin: 0 0 0 auto; color: var(--soft); font-size: 12px; }
+      .demo { padding: 34px 30px; margin-top: 26px; border-radius: 4px; }
+      .demo h3 { margin: 0; font-weight: 500; }
+      .micro { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+
+      /* 01 — Paper */
+      .d1 { background: #fdfcf9; }
+      .d1 h3 { font-family: var(--serif); font-size: 25px; letter-spacing: -.015em; }
+      .d1 .sum { margin: 6px 0 26px; color: var(--soft); font-family: var(--serif); font-size: 14px; font-style: italic; }
+      .d1 .row { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 15px 0; border-top: 1px solid #efece4; }
+      .d1 .row span { font-size: 14px; }
+      .d1 .row em { color: var(--soft); font-family: var(--serif); font-size: 12px; font-style: italic; white-space: nowrap; }
+      .d1 .row em.you { color: var(--clay); }
+
+      /* 02 — Margin marks */
+      .d2 { background: #fcfcfa; }
+      .d2 h3 { font-size: 19px; letter-spacing: -.02em; }
+      .d2 .key { display: flex; gap: 16px; margin: 10px 0 24px; color: var(--faint); font-size: 10px; letter-spacing: .07em; }
+      .d2 .key b { font-weight: 500; }
+      .d2 .key i { display: inline-block; width: 12px; height: 2px; margin-right: 6px; vertical-align: 3px; }
+      .d2 .row { margin-bottom: 7px; padding: 10px 0 10px 18px; border-left: 2px solid transparent; font-size: 14px; }
+      .d2 .row small { display: block; margin-top: 3px; color: var(--faint); font-size: 11px; }
+      .d2 .row.you { border-color: var(--clay); }.d2 .row.motion { border-color: var(--stone); }.d2 .row.done { border-color: var(--moss); }
+
+      /* 03 — Typeset */
+      .d3 { background: #fff; }
+      .d3 h3 { font-size: 18px; letter-spacing: -.02em; }
+      .d3 .sum { margin: 5px 0 28px; color: var(--faint); font-size: 12px; }
+      .d3 ul { margin: 0; padding: 0; list-style: none; }
+      .d3 li { padding: 11px 0; font-size: 15px; line-height: 1.4; }
+      .d3 li.you { font-weight: 600; }
+      .d3 li.you::before { content: "→"; margin-right: 10px; color: var(--ink); }
+      .d3 li.motion { color: #57534e; }
+      .d3 li.motion::before { content: "·"; margin-right: 14px; margin-left: 4px; color: var(--faint); }
+      .d3 li.done { color: var(--faint); }
+      .d3 li.done::before { content: "✓"; margin-right: 10px; }
+
+      /* 04 — Bands */
+      .d4 { background: #f4f6f1; }
+      .d4 h3 { font-size: 19px; letter-spacing: -.02em; }
+      .d4 .sum { margin: 5px 0 22px; color: #6f7a68; font-size: 12px; }
+      .d4 .band { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 6px; padding: 16px 18px; border-radius: 3px; font-size: 14px; }
+      .d4 .band small { color: #77726a; font-size: 11px; }
+      .d4 .you { background: #f7ece2; }.d4 .motion { background: #ecefe8; }.d4 .done { background: #e6ece1; }
+
+      /* 05 — Ledger */
+      .d5 { background: #fffdf9; }
+      .d5 h3 { font-size: 17px; letter-spacing: -.015em; }
+      .d5 table { width: 100%; margin-top: 22px; border-collapse: collapse; }
+      .d5 th { padding: 0 0 9px; color: var(--faint); text-align: left; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 9px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; }
+      .d5 td { padding: 13px 0; border-bottom: 1px solid #f2efe8; font-size: 13px; }
+      .d5 td.state { width: 84px; font-family: var(--mono); font-size: 10px; letter-spacing: .04em; }
+      .d5 td.who { width: 108px; color: var(--soft); font-size: 11px; text-align: right; }
+      .d5 .you { color: var(--clay); }.d5 .motion { color: var(--stone); }.d5 .done { color: var(--moss); }
+
+      /* 06 — Focus */
+      .d6 { background: #fbf7f2; }
+      .d6 .micro { color: var(--clay); }
+      .d6 .hero { margin: 12px 0 8px; font-size: 27px; font-weight: 450; letter-spacing: -.03em; line-height: 1.2; }
+      .d6 .why { margin: 0 0 30px; color: var(--soft); font-size: 13px; }
+      .d6 .rest { padding-top: 20px; border-top: 1px solid #eee6dc; }
+      .d6 .rest div { display: flex; justify-content: space-between; padding: 7px 0; color: var(--soft); font-size: 12px; }
+      .d6 .rest span { color: var(--faint); }
+
+      /* 07 — Timeline */
+      .d7 { background: #fafaf8; }
+      .d7 h3 { font-size: 18px; letter-spacing: -.02em; margin-bottom: 24px; }
+      .d7 .line { position: relative; padding-left: 24px; border-left: 1px solid var(--rule); }
+      .d7 .ev { position: relative; padding: 0 0 24px; }
+      .d7 .ev:last-child { padding-bottom: 0; }
+      .d7 .ev::before { content: ""; position: absolute; top: 5px; left: -29px; width: 9px; height: 9px; border: 2px solid #fafaf8; border-radius: 50%; }
+      .d7 .ev.you::before { background: var(--clay); }.d7 .ev.motion::before { background: var(--stone); }.d7 .ev.done::before { background: var(--moss); }
+      .d7 .ev b { display: block; font-size: 14px; font-weight: 500; }
+      .d7 .ev small { color: var(--faint); font-size: 11px; }
+
+      /* 08 — Sentences */
+      .d8 { background: #fff; }
+      .d8 h3 { font-size: 18px; letter-spacing: -.02em; }
+      .d8 .sum { margin: 5px 0 26px; color: var(--faint); font-size: 12px; }
+      .d8 .say { padding: 12px 0; font-size: 14.5px; line-height: 1.55; }
+      .d8 .say + .say { border-top: 1px solid #f3f1ec; }
+      .d8 .who { padding: 2px 7px; border-radius: 3px; background: #f4f2ed; color: #5f5a52; font-size: 12px; }
+      .d8 .ask { color: var(--clay); font-weight: 550; }
+
+      /* 09 — Clay */
+      .d9 { background: #f8f1ea; }
+      .d9 h3 { font-size: 22px; font-weight: 450; letter-spacing: -.03em; color: #3a2c22; }
+      .d9 .counts { display: flex; gap: 26px; margin: 20px 0 28px; }
+      .d9 .counts div b { display: block; font-size: 26px; font-weight: 400; letter-spacing: -.04em; color: #6b4226; }
+      .d9 .counts div span { color: #96806e; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+      .d9 .item { padding: 14px 0; border-top: 1px solid #ece0d4; }
+      .d9 .item b { display: block; font-size: 14px; font-weight: 500; color: #3a2c22; }
+      .d9 .item span { color: #a08a76; font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }
+
+      /* 10 — Split */
+      .d10 { display: grid; grid-template-columns: 92px 1fr; gap: 30px; background: #fcfbf8; }
+      .d10 .nums div { padding-bottom: 16px; }
+      .d10 .nums b { display: block; font-size: 30px; font-weight: 300; letter-spacing: -.05em; line-height: 1; }
+      .d10 .nums span { color: var(--faint); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+      .d10 .nums .c-you b { color: var(--clay); }.d10 .nums .c-motion b { color: var(--stone); }.d10 .nums .c-done b { color: var(--moss); }
+      .d10 h3 { font-size: 17px; letter-spacing: -.02em; margin-bottom: 16px; }
+      .d10 .r { display: flex; align-items: center; gap: 11px; padding: 12px 0; border-top: 1px solid #f1eee7; font-size: 14px; }
+      .d10 .r i { width: 6px; height: 6px; border-radius: 50%; flex: 0 0 auto; }
+      .d10 .r.you i { background: var(--clay); }.d10 .r.motion i { background: var(--stone); }.d10 .r.done i { background: var(--moss); }
+      .d10 .r small { margin-left: auto; color: var(--faint); font-size: 11px; }
+
+      @media (max-width: 940px) { .grid { grid-template-columns: 1fr; } .page { padding: 48px 22px 70px; } }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Ten lighter directions</h1>
+        <p>The same queue, ten ways. No blue, no violet, no cards inside cards. Each one carries the three states differently — the question is how loud that signal needs to be.</p>
+        <div class="legend">
+          <span><i style="background:#b0531f"></i>Your move</span>
+          <span><i style="background:#8a8479"></i>In motion</span>
+          <span><i style="background:#4d6d42"></i>Completed</span>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section>
+          <div class="opt-head"><span class="num">01</span><h2>Paper</h2><p>Rules instead of cards</p></div>
+          <div class="demo d1">
+            <h3>Keep personal website updated</h3>
+            <p class="sum">One decision holding work, two in motion.</p>
+            <div class="row"><span>Pick the work to feature</span><em class="you">your move</em></div>
+            <div class="row"><span>Draft the project write-ups</span><em>in motion</em></div>
+            <div class="row"><span>Audit stale links</span><em>in motion</em></div>
+            <div class="row"><span>About page copy v2</span><em>completed</em></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">02</span><h2>Margin marks</h2><p>Status lives in the margin</p></div>
+          <div class="demo d2">
+            <h3>Keep personal website updated</h3>
+            <div class="key"><b><i style="background:#b0531f"></i>you</b><b><i style="background:#8a8479"></i>agent</b><b><i style="background:#4d6d42"></i>done</b></div>
+            <div class="row you">Pick the work to feature<small>Holds the homepage rebuild</small></div>
+            <div class="row motion">Draft the project write-ups<small>Content Agent</small></div>
+            <div class="row motion">Audit stale links<small>Site Builder</small></div>
+            <div class="row done">About page copy v2<small>Live</small></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">03</span><h2>Typeset</h2><p>Weight carries the state, not colour</p></div>
+          <div class="demo d3">
+            <h3>Keep personal website updated</h3>
+            <p class="sum">1 · 2 · 1</p>
+            <ul>
+              <li class="you">Pick the work to feature</li>
+              <li class="motion">Draft the project write-ups</li>
+              <li class="motion">Audit stale links</li>
+              <li class="done">About page copy v2</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">04</span><h2>Bands</h2><p>Tinted rows, no borders</p></div>
+          <div class="demo d4">
+            <h3>Keep personal website updated</h3>
+            <p class="sum">1 waiting on you</p>
+            <div class="band you">Pick the work to feature<small>your move</small></div>
+            <div class="band motion">Draft the project write-ups<small>Content Agent</small></div>
+            <div class="band motion">Audit stale links<small>Site Builder</small></div>
+            <div class="band done">About page copy v2<small>completed</small></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">05</span><h2>Ledger</h2><p>Editorial table, hairlines only</p></div>
+          <div class="demo d5">
+            <h3>Keep personal website updated</h3>
+            <table>
+              <tr><th>State</th><th>Task</th><th style="text-align:right">Agent</th></tr>
+              <tr><td class="state you">your move</td><td>Pick the work to feature</td><td class="who">Content</td></tr>
+              <tr><td class="state motion">in motion</td><td>Draft the project write-ups</td><td class="who">Content</td></tr>
+              <tr><td class="state motion">in motion</td><td>Audit stale links</td><td class="who">Site</td></tr>
+              <tr><td class="state done">completed</td><td>About page copy v2</td><td class="who">Content</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">06</span><h2>Focus</h2><p>One move large, the rest quiet</p></div>
+          <div class="demo d6">
+            <p class="micro">Your move</p>
+            <p class="hero">Pick the work to feature</p>
+            <p class="why">Two projects could lead. This holds the homepage rebuild.</p>
+            <div class="rest">
+              <div>Draft the project write-ups<span>Content Agent</span></div>
+              <div>Audit stale links<span>Site Builder</span></div>
+              <div>About page copy v2<span>done</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">07</span><h2>Thread</h2><p>A single line, dotted with state</p></div>
+          <div class="demo d7">
+            <h3>Keep personal website updated</h3>
+            <div class="line">
+              <div class="ev you"><b>Pick the work to feature</b><small>waiting on you · 2m</small></div>
+              <div class="ev motion"><b>Draft the project write-ups</b><small>Content Agent · now</small></div>
+              <div class="ev motion"><b>Audit stale links</b><small>Site Builder · now</small></div>
+              <div class="ev done"><b>About page copy v2</b><small>completed · 18m</small></div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">08</span><h2>Sentences</h2><p>Reads like a note, not a board</p></div>
+          <div class="demo d8">
+            <h3>Keep personal website updated</h3>
+            <p class="sum">Updated a moment ago</p>
+            <div class="say"><span class="ask">You pick</span> which work leads the homepage.</div>
+            <div class="say"><span class="who">Content Agent</span> is drafting three project write-ups.</div>
+            <div class="say"><span class="who">Site Builder</span> is auditing stale links.</div>
+            <div class="say">The about page rewrite is live.</div>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">09</span><h2>Clay</h2><p>Warm, quiet, small caps</p></div>
+          <div class="demo d9">
+            <h3>Keep personal website updated</h3>
+            <div class="counts">
+              <div><b>1</b><span>you</span></div>
+              <div><b>2</b><span>moving</span></div>
+              <div><b>1</b><span>done</span></div>
+            </div>
+            <div class="item"><b>Pick the work to feature</b><span>your move</span></div>
+            <div class="item"><b>Draft the project write-ups</b><span>in motion</span></div>
+            <div class="item"><b>Audit stale links</b><span>in motion</span></div>
+            <div class="item"><b>About page copy v2</b><span>completed</span></div>
+          </div>
+        </section>
+
+        <section>
+          <div class="opt-head"><span class="num">10</span><h2>Split</h2><p>Numerals left, bare list right</p></div>
+          <div class="demo d10">
+            <div class="nums">
+              <div class="c-you"><b>1</b><span>you</span></div>
+              <div class="c-motion"><b>2</b><span>moving</span></div>
+              <div class="c-done"><b>1</b><span>done</span></div>
+            </div>
+            <div>
+              <h3>Keep personal website updated</h3>
+              <div class="r you"><i></i>Pick the work to feature<small>your move</small></div>
+              <div class="r motion"><i></i>Draft the project write-ups<small>in motion</small></div>
+              <div class="r motion"><i></i>Audit stale links<small>in motion</small></div>
+              <div class="r done"><i></i>About page copy v2<small>completed</small></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

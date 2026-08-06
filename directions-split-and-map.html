@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Split, refined · Ten map directions</title>
+    <style>
+      :root {
+        --ink: #1b1a18;
+        --soft: #736d64;
+        --faint: #a8a196;
+        --ghost: #c9c3b8;
+        --rule: #e7e3da;
+        --hair: #f0ece4;
+        --paper: #fbfaf7;
+        --clay: #b0531f;
+        --moss: #4d6d42;
+        --stone: #8a8479;
+        --sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+        --mono: ui-monospace, "SF Mono", Menlo, monospace;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+      .page { max-width: 1240px; padding: 68px 40px 100px; margin: 0 auto; }
+      h1 { margin: 0; font-size: 38px; font-weight: 500; letter-spacing: -.035em; }
+      .lede { max-width: 520px; margin: 12px 0 0; color: var(--soft); font-size: 15px; line-height: 1.6; }
+      .part { margin-top: 74px; padding-top: 18px; border-top: 1px solid var(--rule); }
+      .part h2 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+      .part > p { max-width: 540px; margin: 8px 0 0; color: var(--soft); font-size: 13px; line-height: 1.55; }
+      .grid { display: grid; gap: 54px 44px; margin-top: 40px; }
+      .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .head { display: flex; align-items: baseline; gap: 11px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+      .num { color: var(--ghost); font-family: var(--mono); font-size: 11px; }
+      .head h3 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+      .head > span { margin-left: auto; color: var(--soft); font-size: 12px; text-align: right; }
+      .demo { padding: 28px 26px; margin-top: 22px; border-radius: 4px; background: #fcfbf8; }
+
+      /* glyphs */
+      .gl { flex: 0 0 auto; width: 12px; height: 12px; }
+      .gl.lg { width: 18px; height: 18px; }
+      .key { display: flex; gap: 26px; margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--rule); }
+      .key div { display: flex; align-items: center; gap: 8px; color: var(--soft); font-size: 12px; }
+      .key b { color: var(--ink); font-weight: 550; }
+
+      /* ---------- Split ---------- */
+      .split { display: grid; grid-template-columns: 76px 1fr; gap: 26px; }
+      .nums .n { padding-bottom: 15px; }
+      .nums b { display: block; font-weight: 300; line-height: 1; letter-spacing: -.05em; }
+      .nums span { font-size: 9px; letter-spacing: .11em; text-transform: uppercase; }
+      .nums .you b { color: var(--clay); font-size: 42px; font-weight: 400; }
+      .nums .you span { color: var(--clay); }
+      .nums .rest b { color: var(--ghost); font-size: 20px; }
+      .nums .rest span { color: var(--faint); }
+      .title { margin: 0 0 16px; font-size: 15px; font-weight: 600; letter-spacing: -.02em; }
+      .quiet { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--hair); color: var(--soft); font-size: 12.5px; }
+      .quiet small { margin-left: auto; color: var(--ghost); font-size: 10.5px; }
+      .act { padding: 0; color: var(--clay); border: 0; background: none; font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
+      .act::after { content: " →"; }
+
+      /* A — scale */
+      .a-move { padding-bottom: 20px; }
+      .a-move .top { display: flex; align-items: center; gap: 9px; }
+      .a-move .kicker { color: var(--clay); font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+      .a-move b { display: block; margin: 9px 0 6px; font-size: 21px; font-weight: 500; letter-spacing: -.03em; line-height: 1.15; }
+      .a-move p { margin: 0 0 12px; color: var(--soft); font-size: 12.5px; }
+
+      /* B — position */
+      .b-move { padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid var(--rule); }
+      .b-move .row { display: flex; align-items: center; gap: 10px; }
+      .b-move b { font-size: 17px; font-weight: 500; letter-spacing: -.025em; }
+      .b-move .act { margin-left: auto; }
+      .b-move p { margin: 7px 0 0 28px; color: var(--soft); font-size: 12px; }
+      .b-title { margin: 0 0 12px; color: var(--faint); font-size: 11px; letter-spacing: .04em; }
+
+      /* C — aperture */
+      .c-list .quiet { color: var(--ghost); }
+      .c-list .quiet small { color: #dbd6cc; }
+      .c-list .quiet .gl { opacity: .38; }
+      .c-move { display: flex; align-items: center; gap: 10px; padding: 14px 0; border-top: 1px solid var(--hair); font-size: 15px; font-weight: 550; letter-spacing: -.015em; }
+      .c-move small { margin-left: auto; color: var(--clay); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+
+      /* ---------- Maps ---------- */
+      .map { display: block; width: 100%; height: auto; font-family: var(--sans); }
+      .map text { font-size: 9.5px; fill: var(--soft); }
+      .map .t-node { font-size: 10px; fill: var(--ink); font-weight: 550; }
+      .map .t-goal { font-size: 11px; fill: var(--ink); font-weight: 600; }
+      .map .t-you { fill: var(--clay); font-weight: 650; }
+      .map .t-micro { font-size: 8px; fill: var(--faint); letter-spacing: .1em; }
+      .map .wire { stroke: #e3ded4; stroke-width: 1; fill: none; }
+      .map .wire-dash { stroke: #e3ded4; stroke-width: 1; fill: none; stroke-dasharray: 3 3; }
+      .map .ring { fill: none; stroke: #ebe6dc; stroke-dasharray: 2 4; }
+
+      /* 06 outline */
+      .tree { font-size: 13px; line-height: 1.5; }
+      .tree .root { font-weight: 600; letter-spacing: -.01em; }
+      .tree ul { margin: 4px 0 0; padding-left: 15px; list-style: none; border-left: 1px solid var(--rule); }
+      .tree li { position: relative; padding: 7px 0 7px 16px; }
+      .tree li::before { content: ""; position: absolute; top: 17px; left: 0; width: 11px; height: 1px; background: var(--rule); }
+      .tree .ln { display: flex; align-items: center; gap: 8px; }
+      .tree em { font-style: normal; color: var(--faint); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+      .tree .you .ln { color: var(--clay); font-weight: 600; }
+      .tree .you em { color: var(--clay); }
+      .tree .held { color: var(--soft); font-size: 12px; }
+      .tree ul ul { margin-top: 2px; }
+
+      @media (max-width: 1000px) { .g3, .g2 { grid-template-columns: 1fr; } .page { padding: 46px 22px 70px; } }
+    </style>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <symbol id="g-you" viewBox="0 0 16 16">
+          <path d="M8 1.4 14.6 8 8 14.6 1.4 8Z" fill="#b0531f" />
+          <path d="M8 4.6v4.2M8 11.1v.1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+        <symbol id="g-motion" viewBox="0 0 16 16">
+          <circle cx="8" cy="8" r="6.3" fill="none" stroke="#c4bfb4" stroke-width="1.6" />
+          <path d="M8 1.7a6.3 6.3 0 0 1 5.4 9.5L8 8Z" fill="#8a8479" />
+        </symbol>
+        <symbol id="g-done" viewBox="0 0 16 16">
+          <circle cx="8" cy="8" r="6.9" fill="#4d6d42" />
+          <path d="m4.8 8.2 2.2 2.2 4.2-4.6" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="page">
+      <h1>Split, louder — and ten maps</h1>
+      <p class="lede">Split keeps the overview. What changes is how hard the one thing that needs you pushes against everything else — and every state now carries its own mark instead of a coloured dot.</p>
+      <div class="key">
+        <div><svg class="gl"><use href="#g-you" /></svg><b>Decide</b> — needs you</div>
+        <div><svg class="gl"><use href="#g-motion" /></svg><b>In motion</b> — an agent has it</div>
+        <div><svg class="gl"><use href="#g-done" /></svg><b>Complete</b> — artifact ready</div>
+      </div>
+
+      <section class="part">
+        <h2>Part one · Making your move prominent</h2>
+        <p>Three mechanisms, no coloured stripes and no tinted blocks: size, position, contrast. The right-hand column is status and only status.</p>
+        <div class="grid g3">
+
+          <section>
+            <div class="head"><span class="num">A</span><h3>Scale</h3><span>Size and air do the work</span></div>
+            <div class="demo">
+              <div class="split">
+                <div class="nums">
+                  <div class="n you"><b>1</b><span>you</span></div>
+                  <div class="n rest"><b>2</b><span>moving</span></div>
+                  <div class="n rest"><b>1</b><span>done</span></div>
+                </div>
+                <div>
+                  <p class="title">Keep personal website updated</p>
+                  <div class="a-move">
+                    <div class="top"><svg class="gl lg"><use href="#g-you" /></svg><span class="kicker">Decide</span></div>
+                    <b>Pick the work to feature</b>
+                    <p>Holds the homepage rebuild.</p>
+                    <button class="act">Choose</button>
+                  </div>
+                  <div class="quiet"><svg class="gl"><use href="#g-motion" /></svg>Draft the project write-ups<small>in motion</small></div>
+                  <div class="quiet"><svg class="gl"><use href="#g-motion" /></svg>Audit stale links<small>in motion</small></div>
+                  <div class="quiet"><svg class="gl"><use href="#g-done" /></svg>About page copy v2<small>completed</small></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">B</span><h3>Position</h3><span>Above the fold of the goal</span></div>
+            <div class="demo">
+              <div class="split">
+                <div class="nums">
+                  <div class="n you"><b>1</b><span>you</span></div>
+                  <div class="n rest"><b>2</b><span>moving</span></div>
+                  <div class="n rest"><b>1</b><span>done</span></div>
+                </div>
+                <div>
+                  <div class="b-move">
+                    <div class="row"><svg class="gl lg"><use href="#g-you" /></svg><b>Pick the work to feature</b><button class="act">Choose</button></div>
+                    <p>Holds the homepage rebuild.</p>
+                  </div>
+                  <p class="b-title">Keep personal website updated</p>
+                  <div class="quiet"><svg class="gl"><use href="#g-motion" /></svg>Draft the project write-ups<small>in motion</small></div>
+                  <div class="quiet"><svg class="gl"><use href="#g-motion" /></svg>Audit stale links<small>in motion</small></div>
+                  <div class="quiet"><svg class="gl"><use href="#g-done" /></svg>About page copy v2<small>completed</small></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">C</span><h3>Aperture</h3><span>Everything else recedes</span></div>
+            <div class="demo">
+              <div class="split">
+                <div class="nums">
+                  <div class="n you"><b>1</b><span>you</span></div>
+                  <div class="n rest"><b>2</b><span>moving</span></div>
+                  <div class="n rest"><b>1</b><span>done</span></div>
+                </div>
+                <div class="c-list">
+                  <p class="title">Keep personal website updated</p>
+                  <div class="c-move"><svg class="gl lg"><use href="#g-you" /></svg>Pick the work to feature<small>decide</small></div>
+                  <div class="quiet"><svg class="gl"><use href="#g-motion" /></svg>Draft the project write-ups<small>in motion</small></div>
+                  <div class="quiet"><svg class="gl"><use href="#g-motion" /></svg>Audit stale links<small>in motion</small></div>
+                  <div class="quiet"><svg class="gl"><use href="#g-done" /></svg>About page copy v2<small>completed</small></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="part">
+        <h2>Part two · Ten map views</h2>
+        <p>Same five pieces of work every time: an audit in motion, a decision waiting on you, a finished artifact, a rebuild in motion, one branch. The diamond is always the thing that needs you.</p>
+        <div class="grid g2">
+
+          <section>
+            <div class="head"><span class="num">01</span><h3>Constellation</h3><span>Marks and hairlines, no boxes</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <line class="wire" x1="122" y1="80" x2="172" y2="112" /><line class="wire" x1="258" y1="78" x2="208" y2="112" />
+                <line class="wire" x1="122" y1="180" x2="172" y2="130" /><line class="wire" x1="258" y1="180" x2="208" y2="130" />
+                <line class="wire-dash" x1="190" y1="140" x2="190" y2="194" />
+                <circle cx="190" cy="121" r="7" fill="#efece4" stroke="#d8d2c6" />
+                <text class="t-goal" x="190" y="103" text-anchor="middle">Personal site</text>
+                <use href="#g-motion" x="99" y="65" width="11" height="11" /><text class="t-node" x="104" y="52" text-anchor="middle">Content audit</text>
+                <use href="#g-you" x="270" y="60" width="16" height="16" /><text class="t-node t-you" x="278" y="50" text-anchor="middle">Pick featured work</text>
+                <use href="#g-done" x="99" y="185" width="11" height="11" /><text class="t-node" x="104" y="212" text-anchor="middle">About page v2</text>
+                <use href="#g-motion" x="273" y="185" width="11" height="11" /><text class="t-node" x="278" y="212" text-anchor="middle">Homepage rebuild</text>
+                <use href="#g-motion" x="185" y="199" width="10" height="10" /><text x="190" y="224" text-anchor="middle">Now page · branch</text>
+              </svg>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">02</span><h3>Spine</h3><span>Work grows off a trunk</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <text class="t-goal" x="190" y="22" text-anchor="middle">Keep personal website updated</text>
+                <line class="wire" x1="190" y1="34" x2="190" y2="222" />
+                <line class="wire" x1="184" y1="66" x2="150" y2="66" /><text class="t-node" x="142" y="63" text-anchor="end">Content audit</text><text x="142" y="76" text-anchor="end">in motion</text>
+                <line class="wire" x1="198" y1="110" x2="232" y2="110" /><text class="t-node t-you" x="240" y="107">Pick featured work</text><text class="t-you" x="240" y="120">decide</text>
+                <line class="wire" x1="184" y1="154" x2="150" y2="154" /><text class="t-node" x="142" y="151" text-anchor="end">About page v2</text><text x="142" y="164" text-anchor="end">completed</text>
+                <line class="wire" x1="198" y1="196" x2="232" y2="196" /><text class="t-node" x="240" y="193">Homepage rebuild</text><text x="240" y="206">in motion</text>
+                <line class="wire-dash" x1="184" y1="226" x2="150" y2="226" /><text x="142" y="229" text-anchor="end">Now page · branch</text>
+                <use href="#g-motion" x="184.5" y="60.5" width="11" height="11" />
+                <use href="#g-you" x="182" y="102" width="16" height="16" />
+                <use href="#g-done" x="184.5" y="148.5" width="11" height="11" />
+                <use href="#g-motion" x="184.5" y="190.5" width="11" height="11" />
+                <use href="#g-motion" x="185" y="221" width="10" height="10" />
+              </svg>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">03</span><h3>Orbit</h3><span>Inner ring is yours to move</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <circle class="ring" cx="190" cy="120" r="52" /><circle class="ring" cx="190" cy="120" r="98" />
+                <text class="t-micro" x="190" y="60" text-anchor="middle">YOURS</text>
+                <text class="t-micro" x="190" y="14" text-anchor="middle">AGENTS</text>
+                <circle cx="190" cy="120" r="6" fill="#efece4" stroke="#d8d2c6" />
+                <text class="t-goal" x="190" y="142" text-anchor="middle">Personal site</text>
+                <use href="#g-you" x="228" y="86" width="16" height="16" /><text class="t-node t-you" x="250" y="98">Pick featured work</text>
+                <use href="#g-motion" x="107" y="67" width="11" height="11" /><text class="t-node" x="100" y="70" text-anchor="end">Audit</text>
+                <use href="#g-motion" x="273" y="171" width="11" height="11" /><text class="t-node" x="290" y="180">Rebuild</text>
+                <use href="#g-done" x="101" y="171" width="11" height="11" /><text class="t-node" x="94" y="180" text-anchor="end">About v2</text>
+                <use href="#g-motion" x="185" y="213" width="10" height="10" /><text x="190" y="234" text-anchor="middle">Now page · branch</text>
+              </svg>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">04</span><h3>Flow</h3><span>Left to right, no containers</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <text class="t-micro" x="18" y="26">LEARN</text><text class="t-micro" x="152" y="26">DECIDE</text><text class="t-micro" x="286" y="26">BUILD</text>
+                <line class="wire" x1="18" y1="34" x2="122" y2="34" /><line class="wire" x1="152" y1="34" x2="256" y2="34" /><line class="wire" x1="286" y1="34" x2="362" y2="34" />
+                <use href="#g-motion" x="18" y="63" width="11" height="11" /><text class="t-node" x="36" y="72">Content audit</text><text x="36" y="85">in motion</text>
+                <use href="#g-done" x="18" y="115" width="11" height="11" /><text class="t-node" x="36" y="124">About page v2</text><text x="36" y="137">completed</text>
+                <use href="#g-you" x="152" y="60" width="16" height="16" /><text class="t-node t-you" x="174" y="72">Pick featured work</text><text class="t-you" x="174" y="85">decide</text>
+                <use href="#g-motion" x="286" y="63" width="11" height="11" /><text class="t-node" x="304" y="72">Homepage rebuild</text><text x="304" y="85">in motion</text>
+                <use href="#g-motion" x="286" y="123" width="10" height="10" /><text class="t-node" x="304" y="132">Now page</text><text x="304" y="145">branch</text>
+                <path class="wire" d="M120 68 L148 68" /><path class="wire" d="M254 68 L282 68" /><path class="wire-dash" d="M254 74 Q272 128 282 128" />
+                <path class="wire" d="M120 120 Q142 120 150 80" />
+              </svg>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">05</span><h3>Fields</h3><span>Soft regions, adjacency not lines</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <rect x="10" y="26" width="168" height="94" rx="47" fill="#f6efe8" />
+                <rect x="196" y="26" width="174" height="94" rx="47" fill="#f1f0ea" />
+                <rect x="58" y="138" width="264" height="84" rx="42" fill="#ebefe8" />
+                <text class="t-micro" x="34" y="50" fill="#b0531f">NEEDS YOU</text>
+                <text class="t-micro" x="220" y="50">IN MOTION</text>
+                <text class="t-micro" x="82" y="162">COMPLETE</text>
+                <use href="#g-you" x="32" y="66" width="15" height="15" /><text class="t-node t-you" x="54" y="78">Pick featured work</text><text x="54" y="92" fill="#a3714f">holds the rebuild</text>
+                <use href="#g-motion" x="220" y="68" width="11" height="11" /><text class="t-node" x="238" y="78">Content audit</text>
+                <use href="#g-motion" x="220" y="90" width="11" height="11" /><text class="t-node" x="238" y="100">Homepage rebuild</text>
+                <use href="#g-done" x="82" y="176" width="11" height="11" /><text class="t-node" x="100" y="186">About page copy v2</text>
+                <use href="#g-motion" x="222" y="176" width="10" height="10" /><text class="t-node" x="240" y="186">Now page</text><text x="240" y="200">branch</text>
+              </svg>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">06</span><h3>Outline</h3><span>The map as an indented tree</span></div>
+            <div class="demo">
+              <div class="tree">
+                <div class="root">Keep personal website updated</div>
+                <ul>
+                  <li><span class="ln"><svg class="gl"><use href="#g-motion" /></svg>Content audit <em>in motion</em></span></li>
+                  <li class="you"><span class="ln"><svg class="gl"><use href="#g-you" /></svg>Pick the work to feature <em>decide</em></span>
+                    <ul><li><span class="ln held">Homepage rebuild</span></li></ul>
+                  </li>
+                  <li><span class="ln"><svg class="gl"><use href="#g-done" /></svg>About page copy v2 <em>completed</em></span></li>
+                  <li><span class="ln"><svg class="gl"><use href="#g-motion" /></svg>Now page <em>branch</em></span></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">07</span><h3>Route</h3><span>One line, stations along it</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <path d="M36 96 L150 96 Q176 96 176 122 L176 150 Q176 176 202 176 L344 176" fill="none" stroke="#ded8cd" stroke-width="3" stroke-linecap="round" />
+                <path d="M176 122 Q176 96 202 96 L326 96" fill="none" stroke="#e9dccd" stroke-width="3" stroke-linecap="round" stroke-dasharray="6 5" />
+                <use href="#g-motion" x="30" y="90" width="12" height="12" /><text class="t-node" x="36" y="78" text-anchor="middle">Audit</text>
+                <use href="#g-you" x="167" y="113" width="18" height="18" /><text class="t-node t-you" x="176" y="148" text-anchor="middle">Pick featured work</text>
+                <use href="#g-motion" x="260" y="170" width="12" height="12" /><text class="t-node" x="266" y="200" text-anchor="middle">Homepage rebuild</text>
+                <use href="#g-done" x="338" y="170" width="12" height="12" /><text class="t-node" x="344" y="200" text-anchor="middle">About v2</text>
+                <use href="#g-motion" x="320" y="90" width="12" height="12" /><text x="326" y="78" text-anchor="middle">Now page · branch</text>
+              </svg>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">08</span><h3>Ladder</h3><span>Depth in columns, square corners</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <text class="t-micro" x="16" y="28">01</text><text class="t-micro" x="140" y="28">02</text><text class="t-micro" x="264" y="28">03</text>
+                <line class="wire" x1="16" y1="36" x2="104" y2="36" /><line class="wire" x1="140" y1="36" x2="228" y2="36" /><line class="wire" x1="264" y1="36" x2="364" y2="36" />
+                <path class="wire" d="M104 74 L122 74 L122 106 L138 106" />
+                <path class="wire" d="M104 152 L122 152 L122 112 L138 112" />
+                <path class="wire" d="M242 108 L264 108" />
+                <path class="wire-dash" d="M242 114 L254 114 L254 172 L264 172" />
+                <use href="#g-motion" x="16" y="64" width="11" height="11" /><text class="t-node" x="34" y="73">Content audit</text><text x="34" y="86">in motion</text>
+                <use href="#g-done" x="16" y="142" width="11" height="11" /><text class="t-node" x="34" y="151">About page v2</text><text x="34" y="164">completed</text>
+                <use href="#g-you" x="138" y="98" width="16" height="16" /><text class="t-node t-you" x="160" y="107">Pick featured work</text><text class="t-you" x="160" y="120">decide</text>
+                <use href="#g-motion" x="264" y="102" width="11" height="11" /><text class="t-node" x="282" y="111">Homepage rebuild</text><text x="282" y="124">in motion</text>
+                <use href="#g-motion" x="264" y="166" width="10" height="10" /><text class="t-node" x="282" y="175">Now page</text><text x="282" y="188">branch</text>
+              </svg>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">09</span><h3>Aperture</h3><span>The rest of the map is ghosted</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <g opacity=".24">
+                  <line class="wire" x1="122" y1="80" x2="172" y2="112" /><line class="wire" x1="122" y1="180" x2="172" y2="130" /><line class="wire-dash" x1="190" y1="140" x2="190" y2="194" />
+                  <use href="#g-motion" x="99" y="65" width="11" height="11" /><text class="t-node" x="104" y="52" text-anchor="middle">Content audit</text>
+                  <use href="#g-done" x="99" y="185" width="11" height="11" /><text class="t-node" x="104" y="212" text-anchor="middle">About page v2</text>
+                  <use href="#g-motion" x="185" y="199" width="10" height="10" /><text x="190" y="224" text-anchor="middle">Now page</text>
+                  <circle cx="190" cy="121" r="7" fill="#efece4" stroke="#d8d2c6" /><text class="t-goal" x="190" y="103" text-anchor="middle">Personal site</text>
+                </g>
+                <circle cx="278" cy="70" r="30" fill="#f6efe8" />
+                <line x1="208" y1="112" x2="262" y2="80" stroke="#dcbca4" stroke-width="1.5" />
+                <line class="wire" x1="258" y1="180" x2="208" y2="130" opacity=".45" />
+                <use href="#g-you" x="269" y="61" width="18" height="18" />
+                <text class="t-node t-you" x="278" y="46" text-anchor="middle">Pick featured work</text>
+                <text class="t-you" x="278" y="104" text-anchor="middle">holds the rebuild</text>
+                <use href="#g-motion" x="273" y="175" width="11" height="11" opacity=".55" /><text class="t-node" x="278" y="202" text-anchor="middle" opacity=".55">Homepage rebuild</text>
+              </svg>
+            </div>
+          </section>
+
+          <section>
+            <div class="head"><span class="num">10</span><h3>Arcs</h3><span>One baseline, links drawn over it</span></div>
+            <div class="demo">
+              <svg class="map" viewBox="0 0 380 240">
+                <path class="wire" d="M46 148 Q108 62 170 148" /><path class="wire" d="M170 148 Q232 48 294 148" />
+                <path class="wire" d="M170 148 Q208 90 246 148" /><path class="wire-dash" d="M246 148 Q288 98 330 148" />
+                <line x1="26" y1="148" x2="356" y2="148" stroke="#ded8cd" stroke-width="1" />
+                <use href="#g-motion" x="40" y="142" width="12" height="12" /><text class="t-node" x="46" y="172" text-anchor="middle">Audit</text>
+                <use href="#g-you" x="161" y="139" width="18" height="18" /><text class="t-node t-you" x="170" y="176" text-anchor="middle">Pick featured work</text><text class="t-you" x="170" y="188" text-anchor="middle">decide</text>
+                <use href="#g-motion" x="240" y="142" width="12" height="12" /><text class="t-node" x="246" y="172" text-anchor="middle">Rebuild</text>
+                <use href="#g-done" x="288" y="142" width="12" height="12" /><text class="t-node" x="294" y="196" text-anchor="middle">About v2</text>
+                <use href="#g-motion" x="324" y="142" width="12" height="12" /><text x="330" y="172" text-anchor="middle">Now page</text>
+              </svg>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
