@@ -41,7 +41,7 @@ inherits everything the agents have worked out so far and carries on from there.
 - Every agent update can be rated, and every completed artifact opens to its
   result, the reasoning, and its sources.
 - The three counts at the top double as filters.
-- Flow is derived from the tasks themselves, so the two views cannot disagree.
+- Stages is derived from the tasks themselves, so the two views cannot disagree.
   Connectors are drawn only where a real dependency exists.
 
 ## Design constraints it was built under
