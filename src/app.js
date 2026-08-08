@@ -70,7 +70,7 @@ function meter(value, eta, muted) {
   bar.className = 'bar';
   var fill = document.createElement('i');
   fill.style.width = Math.max(0, Math.min(100, value || 0)) + '%';
-  if (muted) fill.style.background = 'var(--live)';
+  if (muted) fill.style.background = 'var(--done)';
   bar.appendChild(fill);
   var pct = document.createElement('span');
   pct.className = 'pct';
@@ -307,11 +307,12 @@ function taskRow(task, goal) {
   if (task.agent) who.appendChild(agentButton(task.agent));
   var head = document.createElement('div');
   head.className = 'headline';
-  head.append(name, who);
+  head.appendChild(name);
   var note = document.createElement('span');
   note.className = 'note';
   note.textContent = task.note;
-  body.append(head, note);
+  // the agent mark leads the row so every mark lines up down the page
+  body.append(who, head, note);
   if (task.proof) {
     var open = document.createElement('button');
     open.className = 'proof';
