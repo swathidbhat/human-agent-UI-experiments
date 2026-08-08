@@ -8,7 +8,7 @@ var branchModal = document.getElementById('branchModal');
 var proofModal = document.getElementById('proofModal');
 var branchName = document.getElementById('branchName');
 var selectedKind = 'Investigate';
-var activeGoal = 'customers';
+var activeGoal = 'support';
 var branchSourceTitle = '';
 var currentView = 'cockpit';
 var lastWorkView = 'cockpit';
@@ -733,4 +733,4 @@ function sendChat() {
 document.getElementById('chatSend').addEventListener('click', sendChat);
 document.getElementById('chatInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') sendChat(); });
 
-switchGoal('customers');
+switchGoal('support');

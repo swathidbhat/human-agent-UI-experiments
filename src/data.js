@@ -12,8 +12,7 @@ var TIP = {
 var BRANCH_TIP = 'Add follow-up work. It keeps everything worked out so far and carries on from here';
 
 var AGENTS = {
-  'Outreach Writer': { mark: 'OW', hue: '#101014' },
-  'Market Research': { mark: 'MR', hue: '#067647' },
+  'Ops Agent':       { mark: 'OA', hue: '#101014' },
   'Release Agent':   { mark: 'RA', hue: '#3f3f49' },
   'Support Triage':  { mark: 'ST', hue: '#26262d' },
   'Content Agent':   { mark: 'CA', hue: '#0a8f57' },
@@ -21,43 +20,42 @@ var AGENTS = {
 };
 
 var goals = {
-  customers: {
-    title: 'Convert free users to paid',
-    subtitle: 'Turn the 1,200 free accounts into revenue when v2 ships.',
-    agents: ['Outreach Writer', 'Market Research'],
-    branchDefault: 'Try founder-led demos',
+  support: {
+    title: 'Clear the support backlog before launch',
+    subtitle: 'Get the queue down and the week covered before v2 ships.',
+    agents: ['Ops Agent', 'Support Triage'],
+    branchDefault: 'Draft a status page template',
     tasks: [
-      { id: 'c1', state: 'you', stage: 'decide', title: 'Pick who to target first', note: 'Two groups convert very differently.', agent: 'Outreach Writer', progress: 0, since: '4m',
-        holds: 'Write the upgrade emails', basis: 'c3', basisLabel: 'the account scoring',
+      { id: 's1', state: 'you', stage: 'decide', title: 'Decide the refund line', note: '14 accounts were double-charged during the migration test.', agent: 'Ops Agent', progress: 0, since: '6m',
+        holds: 'Reply to the 14 affected accounts', basis: 's4', basisLabel: 'the billing audit',
         options: [
-          { label: 'Solo consultants', consequence: 'Faster yes, smaller plans. Emails go out the day v2 ships.', recommended: true },
-          { label: 'Teams of 10 to 50', consequence: 'Bigger plans, longer cycle. Needs the security page first.' }
+          { label: 'Refund all 14 automatically', consequence: 'Costs $420 and closes it today. Nobody has to ask.', recommended: true },
+          { label: 'Refund on request', consequence: 'Cheaper, but each request becomes a ticket in launch week.' }
         ] },
-      { id: 'c2', state: 'you', stage: 'decide', title: 'Approve the early-account discount', note: 'The first 1,200 expect something for waiting.', agent: 'Market Research', progress: 0, since: '18m',
-        basis: 'c3', basisLabel: 'the account scoring',
+      { id: 's2', state: 'you', stage: 'decide', title: 'Pick who covers launch week', note: 'Ticket volume roughly triples for three days.', agent: 'Support Triage', progress: 0, since: '40m',
         options: [
-          { label: 'Half price for three months', consequence: 'Costs less up front and is easy to end.', recommended: true },
-          { label: 'Free for a year', consequence: 'Converts more now, much harder to raise later.' }
+          { label: 'Two people on a split rota', consequence: 'Covered 7am to 9pm. Both lose a day of project work.', recommended: true },
+          { label: 'One person on point', consequence: 'Nobody else loses a day, but a queue builds overnight.' }
         ] },
-      { id: 'c3', state: 'motion', stage: 'learn', title: 'Score the 340 active accounts', note: 'Ranking them by likelihood to pay.', agent: 'Market Research', progress: 74, since: '6m', eta: 'about 20m left',
-        why: 'It tells you who is actually worth an email.' },
-      { id: 'c4', state: 'motion', stage: 'build', title: 'Write the upgrade emails', note: 'Drafting the first three.', agent: 'Outreach Writer', progress: 38, since: '12m', eta: 'about 1h left',
-        why: 'They only work once you know who they are for.' },
-      { id: 'c5', state: 'motion', stage: 'learn', title: 'Find where free accounts go quiet', note: 'Tracing where people drop off.', agent: 'Market Research', progress: 21, since: '25m', eta: 'about 2h left',
-        why: 'The drop-off point is where an email can still catch someone.' },
-      { id: 'c6', state: 'complete', stage: 'learn', title: 'Pricing one-pager', note: 'Three tiers. v2 launches with these.', agent: 'Outreach Writer', progress: 100, since: '2h', proof: 'Pricing one-pager',
-        why: 'v2 ships with these prices, so nothing can contradict them.' }
+      { id: 's3', state: 'motion', stage: 'learn', title: 'Triage the 240 open tickets', note: 'Grouping by cause, oldest first.', agent: 'Support Triage', progress: 68, since: '4m', eta: 'about 40m left',
+        why: 'Half the queue looks like a single bug.' },
+      { id: 's5', state: 'motion', stage: 'build', title: 'Reply to the 14 affected accounts', note: 'Drafting one message per billing case.', agent: 'Ops Agent', progress: 22, since: '11m', eta: 'about 1h left',
+        why: 'These are the only people actually owed money.' },
+      { id: 's6', state: 'motion', stage: 'build', title: 'Update the help centre for v2', note: 'Rewriting the six most-read articles.', agent: 'Ops Agent', progress: 45, since: '25m', eta: 'about 2h left',
+        why: 'Most tickets start with someone failing to find the answer.' },
+      { id: 's4', state: 'complete', stage: 'learn', title: 'Billing audit', note: 'Checked every charge since the migration test.', agent: 'Ops Agent', progress: 100, since: '3h', proof: 'Billing audit',
+        why: 'It found the double charges before a customer did.' }
     ],
     artifacts: {
-      'Pricing one-pager': {
-        result: 'Starter $29. Team $89 a seat. Scale from $400. The middle tier is the one to sell; the other two make it the obvious choice.',
-        reasoning: 'Every call that opened with the cheapest plan ended in a discount request. Leading with Team stopped that.',
-        sources: ['31 sales calls, transcribed', 'Competitor pricing, 9 tools', 'Trial-to-paid data from the 340 active accounts']
+      'Billing audit': {
+        result: '14 accounts charged twice between 02:10 and 02:40 during the test migration. $420 in total. No other anomalies across 1,200 accounts.',
+        reasoning: 'The test run wrote to the live billing table for thirty minutes before it was caught. Every charge in that window was re-checked by hand rather than by query.',
+        sources: ['Billing table, 1,200 accounts', 'Migration test log, 02:00 to 03:00', 'Card processor export, December']
       }
     },
     threads: {
-      'Outreach Writer': [['Outreach Writer', '4m ago', 'First three emails drafted. The opening line changes completely depending on which group you pick.'], ['Outreach Writer', 'now', 'Holding the sequence until v2 ships and you choose. Both can happen the same day.']],
-      'Market Research': [['Market Research', '18m ago', '340 of the 1,200 accounts were active this month. Solo consultants convert at 11%, teams at 4% but pay six times more.'], ['Market Research', 'now', 'Modelling the discount. Half price for three months earns the margin back by month five. A free year does not.']]
+      'Ops Agent': [['Ops Agent', '3h ago', 'Billing audit done. 14 accounts double-charged, $420 total, all inside one thirty minute window.'], ['Ops Agent', 'now', 'Drafting the replies. The wording changes depending on whether we refund everyone or wait to be asked.']],
+      'Support Triage': [['Support Triage', '4m ago', '240 tickets open. 112 mention the editor scroll bug, so half the queue is one fix.'], ['Support Triage', 'now', 'Grouping by cause so you can see what a single fix would close.']]
     }
   },
   launch: {

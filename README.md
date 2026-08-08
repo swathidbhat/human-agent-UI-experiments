@@ -12,6 +12,7 @@ src/
 explorations/
   ten-aesthetics.html   ten visual treatments of the same task queue
   split-and-map.html    three ways to make "your move" prominent, plus ten map layouts
+  font-pairings.html    the same screen in ten type pairings, all system-installed
 docs/
   concept-summary.md    the original model this was built from
 ```
