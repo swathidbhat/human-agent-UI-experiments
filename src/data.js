@@ -32,10 +32,11 @@ var goals = {
           { label: 'Refund all 14 automatically', consequence: 'Costs $420 and closes it today. Nobody has to ask.', recommended: true },
           { label: 'Refund on request', consequence: 'Cheaper, but each request becomes a ticket in launch week.' }
         ] },
-      { id: 's2', state: 'you', stage: 'decide', title: 'Pick who covers launch week', note: 'Ticket volume roughly triples for three days.', agent: 'Support Triage', progress: 0, since: '40m',
+      { id: 's2', state: 'you', stage: 'decide', title: 'Approve auto-closing 63 stale tickets', note: '63 tickets have had no reply from the customer in 30 days.', agent: 'Support Triage', progress: 0, since: '40m',
+        holds: 'Triage the 240 open tickets',
         options: [
-          { label: 'Two people on a split rota', consequence: 'Covered 7am to 9pm. Both lose a day of project work.', recommended: true },
-          { label: 'One person on point', consequence: 'Nobody else loses a day, but a queue builds overnight.' }
+          { label: 'Close them with a message', consequence: 'Clears a quarter of the queue today. Anyone still stuck can reply and reopen.', recommended: true },
+          { label: 'Leave them open', consequence: 'Nobody gets closed on, but the queue stays above 200 into launch week.' }
         ] },
       { id: 's3', state: 'motion', stage: 'learn', title: 'Triage the 240 open tickets', note: 'Grouping by cause, oldest first.', agent: 'Support Triage', progress: 68, since: '4m', eta: 'about 40m left',
         why: 'Half the queue looks like a single bug.' },
@@ -55,7 +56,7 @@ var goals = {
     },
     threads: {
       'Ops Agent': [['Ops Agent', '3h ago', 'Billing audit done. 14 accounts double-charged, $420 total, all inside one thirty minute window.'], ['Ops Agent', 'now', 'Drafting the replies. The wording changes depending on whether we refund everyone or wait to be asked.']],
-      'Support Triage': [['Support Triage', '4m ago', '240 tickets open. 112 mention the editor scroll bug, so half the queue is one fix.'], ['Support Triage', 'now', 'Grouping by cause so you can see what a single fix would close.']]
+      'Support Triage': [['Support Triage', '4m ago', '240 tickets open. 112 mention the editor scroll bug, so half the queue is one fix.'], ['Support Triage', 'now', '63 of them have had no customer reply in 30 days. I can close those with a message, but not without your say-so.']]
     }
   },
   launch: {
@@ -71,11 +72,13 @@ var goals = {
           { label: 'Wait and ship all three', consequence: 'Launch slips a week. The first paying customers slip with it.' }
         ] },
       { id: 'l2', state: 'you', stage: 'decide', title: 'Set the rollback trigger', note: 'How far signups can fall before v2 is pulled.', agent: 'Release Agent', progress: 0, since: '30m',
+        holds: 'Watch for breakage reports',
         options: [
           { label: 'Below 60% of normal for a day', consequence: 'Catches a real problem without panicking on a quiet Tuesday.', recommended: true },
           { label: 'Only if the migration fails', consequence: 'Fewer false alarms, but a slow bleed goes unnoticed.' }
         ] },
       { id: 'l3', state: 'you', stage: 'decide', title: 'Choose when to email the 1,200', note: 'The announcement lands once. Timing is the whole thing.', agent: 'Support Triage', progress: 0, since: '52m',
+        holds: 'Write the launch notes',
         options: [
           { label: 'The morning it ships', consequence: 'One message, one moment. Support spikes for a day.', recommended: true },
           { label: 'A day early, as a heads-up', consequence: 'Softer landing, but the news breaks before the product does.' }
