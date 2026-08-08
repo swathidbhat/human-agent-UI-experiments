@@ -11,7 +11,7 @@ src/
   app.js                behaviour; expects data.js to have loaded first
 explorations/
   ten-aesthetics.html   ten visual treatments of the same task queue
-  split-and-map.html    three ways to make "your move" prominent, plus ten map layouts
+  split-and-map.html    three ways to make "needs you" prominent, plus ten map layouts
   font-pairings.html    the same screen in ten type pairings, all system-installed
 docs/
   concept-summary.md    the original model this was built from
@@ -24,7 +24,7 @@ seeded work in `src/data.js`, change how it behaves in `src/app.js`.
 
 Every task is in exactly one of three states, and there is no fourth:
 
-- **Your move** — a decision or action is needed from you.
+- **Needs you** — a decision or action is needed from you.
 - **Working** — an agent can continue without you.
 - **Completed** — the task produced something ready to use.
 

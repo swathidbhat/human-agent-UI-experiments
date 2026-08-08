@@ -177,7 +177,7 @@ function decisionCard(goal, task) {
   top.className = 'top';
   var kicker = document.createElement('span');
   kicker.className = 'kicker';
-  kicker.textContent = 'Your move';
+  kicker.textContent = 'Needs you';
   var since = document.createElement('span');
   since.className = 'since';
   since.textContent = 'waiting ' + task.since;

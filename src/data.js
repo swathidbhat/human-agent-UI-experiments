@@ -3,9 +3,9 @@
 /* Three statuses, and every task is in exactly one:
    you / motion / complete. Branching is an action, never a status. */
 var GLYPH = { you: 'g-you', motion: 'g-motion', complete: 'g-done' };
-var LABEL = { you: 'your move', motion: 'working', complete: 'completed' };
+var LABEL = { you: 'needs you', motion: 'working', complete: 'completed' };
 var TIP = {
-  you: 'Your move. An agent can’t go further until you decide',
+  you: 'Needs you. An agent can’t go further until you decide',
   motion: 'Working. An agent is on this without you',
   complete: 'Completed. Something is ready to use'
 };
