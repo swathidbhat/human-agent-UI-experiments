@@ -12,12 +12,12 @@ var TIP = {
 var BRANCH_TIP = 'Add follow-up work. It keeps everything worked out so far and carries on from here';
 
 var AGENTS = {
-  'Outreach Writer': { mark: 'OW', hue: '#e0116b' },
-  'Market Research': { mark: 'MR', hue: '#00a06b' },
-  'Release Agent':   { mark: 'RA', hue: '#2b0f1d' },
-  'Support Triage':  { mark: 'ST', hue: '#b8006b' },
-  'Content Agent':   { mark: 'CA', hue: '#007a52' },
-  'Site Builder':    { mark: 'SB', hue: '#7a2348' }
+  'Outreach Writer': { mark: 'OW', hue: '#101014' },
+  'Market Research': { mark: 'MR', hue: '#067647' },
+  'Release Agent':   { mark: 'RA', hue: '#3f3f49' },
+  'Support Triage':  { mark: 'ST', hue: '#26262d' },
+  'Content Agent':   { mark: 'CA', hue: '#0a8f57' },
+  'Site Builder':    { mark: 'SB', hue: '#5c5c68' }
 };
 
 var goals = {

@@ -145,10 +145,10 @@ function emptyState() {
   art.setAttribute('viewBox', '0 0 64 64');
   art.setAttribute('width', '58');
   art.setAttribute('height', '58');
-  art.innerHTML = '<circle cx="32" cy="32" r="21" fill="#e5f7ef"></circle>'
-    + '<path d="M14 41c7-3 11-3 18 0s11 3 18 0" fill="none" stroke="#00a06b" stroke-width="2" stroke-linecap="round" opacity=".6"></path>'
-    + '<path d="M18 33c6-2.4 9-2.4 14 0s8 2.4 14 0" fill="none" stroke="#00a06b" stroke-width="2" stroke-linecap="round" opacity=".32"></path>'
-    + '<circle cx="32" cy="22" r="4" fill="#e0116b"></circle>';
+  art.innerHTML = '<circle cx="32" cy="32" r="21" fill="#f2f7f4"></circle>'
+    + '<path d="M14 41c7-3 11-3 18 0s11 3 18 0" fill="none" stroke="#067647" stroke-width="2" stroke-linecap="round" opacity=".6"></path>'
+    + '<path d="M18 33c6-2.4 9-2.4 14 0s8 2.4 14 0" fill="none" stroke="#067647" stroke-width="2" stroke-linecap="round" opacity=".32"></path>'
+    + '<circle cx="32" cy="22" r="4" fill="#101014"></circle>';
   var text = document.createElement('div');
   text.innerHTML = '<b>Nothing needs you right now.</b><p>Three agents are working. You will be asked when a choice would change what they do.</p>';
   wrap.append(art, text);
@@ -685,7 +685,7 @@ function chatLine(who, when, said, self, goal, idx) {
   var row = document.createElement('div');
   row.className = 'msg' + (self ? ' self' : '');
   var av = avatar(self ? 'You' : who);
-  if (self) { av.textContent = 'YOU'; av.style.background = '#2b0f1d'; }
+  if (self) { av.textContent = 'YOU'; av.style.background = '#101014'; }
   var block = document.createElement('div');
   var text = document.createElement('div');
   text.className = 'said' + (self ? ' bubble' : '');
