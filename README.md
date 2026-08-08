@@ -7,7 +7,7 @@ No build step, no dependencies, no network calls.
 index.html              the prototype — start here
 src/
   styles.css            all styling; the palette lives in :root
-  data.js               vocabulary, agents, and the three seeded goals
+  data.js               vocabulary, agents, and the two seeded goals
   app.js                behaviour; expects data.js to have loaded first
 explorations/
   ten-aesthetics.html   ten visual treatments of the same task queue

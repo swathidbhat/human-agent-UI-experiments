@@ -12,53 +12,13 @@ var TIP = {
 var BRANCH_TIP = 'Add follow-up work. It keeps everything worked out so far and carries on from here';
 
 var AGENTS = {
-  'Ops Agent':       { mark: 'OA', hue: '#101014' },
-  'Release Agent':   { mark: 'RA', hue: '#3f3f49' },
+  'Release Agent':   { mark: 'RA', hue: '#101014' },
   'Support Triage':  { mark: 'ST', hue: '#26262d' },
   'Content Agent':   { mark: 'CA', hue: '#0a8f57' },
   'Site Builder':    { mark: 'SB', hue: '#5c5c68' }
 };
 
 var goals = {
-  support: {
-    title: 'Clear the support backlog before launch',
-    subtitle: 'Get the queue down and the week covered before v2 ships.',
-    agents: ['Ops Agent', 'Support Triage'],
-    branchDefault: 'Draft a status page template',
-    tasks: [
-      { id: 's1', state: 'you', stage: 'decide', title: 'Decide the refund line', note: '14 accounts were double-charged during the migration test.', agent: 'Ops Agent', progress: 0, since: '6m',
-        holds: 'Reply to the 14 affected accounts', basis: 's4', basisLabel: 'the billing audit',
-        options: [
-          { label: 'Refund all 14 automatically', consequence: 'Costs $420 and closes it today. Nobody has to ask.', recommended: true },
-          { label: 'Refund on request', consequence: 'Cheaper, but each request becomes a ticket in launch week.' }
-        ] },
-      { id: 's2', state: 'you', stage: 'decide', title: 'Approve auto-closing 63 stale tickets', note: '63 tickets have had no reply from the customer in 30 days.', agent: 'Support Triage', progress: 0, since: '40m',
-        holds: 'Triage the 240 open tickets',
-        options: [
-          { label: 'Close them with a message', consequence: 'Clears a quarter of the queue today. Anyone still stuck can reply and reopen.', recommended: true },
-          { label: 'Leave them open', consequence: 'Nobody gets closed on, but the queue stays above 200 into launch week.' }
-        ] },
-      { id: 's3', state: 'motion', stage: 'learn', title: 'Triage the 240 open tickets', note: 'Grouping by cause, oldest first.', agent: 'Support Triage', progress: 68, since: '4m', eta: 'about 40m left',
-        why: 'Half the queue looks like a single bug.' },
-      { id: 's5', state: 'motion', stage: 'build', title: 'Reply to the 14 affected accounts', note: 'Drafting one message per billing case.', agent: 'Ops Agent', progress: 22, since: '11m', eta: 'about 1h left',
-        why: 'These are the only people actually owed money.' },
-      { id: 's6', state: 'motion', stage: 'build', title: 'Update the help centre for v2', note: 'Rewriting the six most-read articles.', agent: 'Ops Agent', progress: 45, since: '25m', eta: 'about 2h left',
-        why: 'Most tickets start with someone failing to find the answer.' },
-      { id: 's4', state: 'complete', stage: 'learn', title: 'Billing audit', note: 'Checked every charge since the migration test.', agent: 'Ops Agent', progress: 100, since: '3h', proof: 'Billing audit',
-        why: 'It found the double charges before a customer did.' }
-    ],
-    artifacts: {
-      'Billing audit': {
-        result: '14 accounts charged twice between 02:10 and 02:40 during the test migration. $420 in total. No other anomalies across 1,200 accounts.',
-        reasoning: 'The test run wrote to the live billing table for thirty minutes before it was caught. Every charge in that window was re-checked by hand rather than by query.',
-        sources: ['Billing table, 1,200 accounts', 'Migration test log, 02:00 to 03:00', 'Card processor export, December']
-      }
-    },
-    threads: {
-      'Ops Agent': [['Ops Agent', '3h ago', 'Billing audit done. 14 accounts double-charged, $420 total, all inside one thirty minute window.'], ['Ops Agent', 'now', 'Drafting the replies. The wording changes depending on whether we refund everyone or wait to be asked.']],
-      'Support Triage': [['Support Triage', '4m ago', '240 tickets open. 112 mention the editor scroll bug, so half the queue is one fix.'], ['Support Triage', 'now', '63 of them have had no customer reply in 30 days. I can close those with a message, but not without your say-so.']]
-    }
-  },
   launch: {
     title: 'Ship the v2 launch',
     subtitle: 'Get v2 out with paid plans, without losing the free accounts.',
@@ -68,8 +28,8 @@ var goals = {
       { id: 'l1', state: 'you', stage: 'decide', title: 'Decide what ships on day one', note: 'Two features are ready. The third needs another week.', agent: 'Release Agent', progress: 0, since: '8m',
         holds: 'Write the launch notes', basis: 'l6', basisLabel: 'the migration dry run',
         options: [
-          { label: 'Ship the two that are ready', consequence: 'Launch Tuesday, so outreach can start the same week.', recommended: true },
-          { label: 'Wait and ship all three', consequence: 'Launch slips a week. The first paying customers slip with it.' }
+          { label: 'Ship the two that are ready', consequence: 'Launch Tuesday, the same morning the refreshed site goes live.', recommended: true },
+          { label: 'Wait and ship all three', consequence: 'Launch slips a week, and the site refresh sits finished but unused.' }
         ] },
       { id: 'l2', state: 'you', stage: 'decide', title: 'Set the rollback trigger', note: 'How far signups can fall before v2 is pulled.', agent: 'Release Agent', progress: 0, since: '30m',
         holds: 'Watch for breakage reports',
