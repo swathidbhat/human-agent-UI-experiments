@@ -270,7 +270,7 @@ function addGroup(list, name, tasks, goal) {
   var cell = document.createElement('div');
   cell.className = 'g-label';
   var lab = document.createElement('span');
-  lab.className = 'label';
+  lab.className = 'section';
   lab.textContent = name;
   var count = document.createElement('span');
   count.className = 'count';
