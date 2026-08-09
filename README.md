@@ -9,6 +9,7 @@ src/
   styles.css            all styling; the palette lives in :root
   data.js               vocabulary, agents, and the two seeded goals
   app.js                behaviour; expects data.js to have loaded first
+  data.codex.js         an alternate scenario set; swap it in for data.js
 explorations/
   ten-aesthetics.html   ten visual treatments of the same task queue
   split-and-map.html    three ways to make "needs you" prominent, plus ten map layouts
