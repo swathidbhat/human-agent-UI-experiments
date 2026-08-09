@@ -9,7 +9,7 @@ var TIP = {
   motion: 'Working. An agent is on this without you',
   complete: 'Completed. Something is ready to use'
 };
-var BRANCH_TIP = 'Add follow-up work. It keeps everything worked out so far and carries on from here';
+var BRANCH_TIP = 'Add work here. It keeps everything worked out so far and carries on from here';
 
 var AGENTS = {
   'Release Agent':   { mark: 'RA', hue: '#101014' },
