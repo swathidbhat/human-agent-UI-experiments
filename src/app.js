@@ -64,6 +64,14 @@ function branchDot(src) {
 }
 function meter(value, eta, muted) {
   var wrap = document.createElement('div');
+  // ongoing work has no percentage to report, so it says so instead
+  if (value === null || value === undefined) {
+    var running = document.createElement('span');
+    running.className = 'ongoing';
+    running.textContent = 'ongoing';
+    wrap.appendChild(running);
+    return wrap;
+  }
   var row = document.createElement('div');
   row.className = 'meter';
   var bar = document.createElement('div');

@@ -23,7 +23,7 @@ var goals = {
     title: 'Ship the v2 launch',
     subtitle: 'Get v2 out with paid plans, without losing the free accounts.',
     agents: ['Release Agent', 'Support Triage'],
-    branchDefault: 'Plan a rollback if signups dip',
+    branchDefault: 'Draft a status page for launch day',
     tasks: [
       { id: 'l1', state: 'you', stage: 'decide', title: 'Decide what ships on day one', note: 'Two features are ready. The third needs another week.', agent: 'Release Agent', progress: 0, since: '8m',
         holds: 'Write the launch notes', basis: 'l6', basisLabel: 'the migration dry run',
@@ -31,13 +31,13 @@ var goals = {
           { label: 'Ship the two that are ready', consequence: 'Launch Tuesday, the same morning the refreshed site goes live.', recommended: true },
           { label: 'Wait and ship all three', consequence: 'Launch slips a week, and the site refresh sits finished but unused.' }
         ] },
-      { id: 'l2', state: 'you', stage: 'decide', title: 'Set the rollback trigger', note: 'How far signups can fall before v2 is pulled.', agent: 'Release Agent', progress: 0, since: '30m',
+      { id: 'l2', state: 'you', stage: 'decide', title: 'Set the rollback trigger', note: 'How far signups can fall before v2 is pulled.', agent: 'Support Triage', progress: 0, since: '30m',
         holds: 'Watch for breakage reports',
         options: [
           { label: 'Below 60% of normal for a day', consequence: 'Catches a real problem without panicking on a quiet Tuesday.', recommended: true },
           { label: 'Only if the migration fails', consequence: 'Fewer false alarms, but a slow bleed goes unnoticed.' }
         ] },
-      { id: 'l3', state: 'you', stage: 'decide', title: 'Choose when to email the 1,200', note: 'The announcement lands once. Timing is the whole thing.', agent: 'Support Triage', progress: 0, since: '52m',
+      { id: 'l3', state: 'you', stage: 'decide', title: 'Choose when to email the 1,200', note: 'The announcement lands once. Timing is the whole thing.', agent: 'Release Agent', progress: 0, since: '52m',
         holds: 'Write the launch notes',
         options: [
           { label: 'The morning it ships', consequence: 'One message, one moment. Support spikes for a day.', recommended: true },
@@ -47,7 +47,7 @@ var goals = {
         why: 'Nobody can be locked out on launch morning.' },
       { id: 'l5', state: 'motion', stage: 'build', title: 'Write the launch notes', note: 'Drafting the changelog and the email.', agent: 'Release Agent', progress: 30, since: '9m', eta: 'about 1h left',
         why: 'The notes cannot be finished until you know what ships.' },
-      { id: 'l7', state: 'motion', stage: 'learn', title: 'Watch for breakage reports', note: 'Grouping beta tickets by feature.', agent: 'Support Triage', progress: 12, since: '1m', eta: 'runs until launch',
+      { id: 'l7', state: 'motion', stage: 'learn', title: 'Watch for breakage reports', note: 'Grouping beta tickets by feature.', agent: 'Support Triage', progress: null, since: '1m', eta: 'runs until launch',
         why: 'It tells you fast if the migration broke something real.' },
       { id: 'l6', state: 'complete', stage: 'learn', title: 'Migration dry run', note: 'Ran against a copy. Two failures, both fixed.', agent: 'Release Agent', progress: 100, since: '45m', proof: 'Migration dry run',
         why: 'It found the accounts that would have broken on launch day.' }
