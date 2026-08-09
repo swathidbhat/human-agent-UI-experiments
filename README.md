@@ -67,3 +67,7 @@ inherits everything the agents have worked out so far and carries on from there.
 
 The cockpit is also live as a private artifact:
 https://claude.ai/code/artifact/e4ad5d13-446d-4b71-9ec0-b8fc10fe56fd
+
+## Walkthrough
+
+![Walkthrough of the goal cockpit](docs/walkthrough.gif)
