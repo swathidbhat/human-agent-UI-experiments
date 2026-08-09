@@ -40,13 +40,13 @@ var MOTIF = {
   lattice: '<path d="M8 1L15 8L8 15L1 8Z"/><path d="M8 4.8L11.2 8L8 11.2L4.8 8Z"/>'
 };
 function avatar(agent, size) {
-  var a = AGENTS[agent] || { mark: agent.slice(0, 2).toUpperCase(), motif: 'rosette' };
-  var el = document.createElement('span');
-  el.className = 'avatar' + (size ? ' ' + size : '');
-  el.title = agent;
-  el.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true">'
-    + '<g fill="none" stroke="#1740a0" stroke-width="1.3" stroke-linecap="round">'
-    + (MOTIF[a.motif] || MOTIF.rosette) + '</g></svg>';
+  // each agent is a tile: identity by motif, cobalt on white, the way a border
+  // course tells you which tile you are looking at
+  var a = AGENTS[agent] || {};
+  var el = svgIcon('t-' + (a.motif || 'rosette'), 'avatar' + (size ? ' ' + size : ''));
+  var t = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+  t.textContent = agent;
+  el.insertBefore(t, el.firstChild);
   return el;
 }
 function agentButton(agent, size) {

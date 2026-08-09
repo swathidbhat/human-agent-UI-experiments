@@ -54,8 +54,10 @@ inherits everything the agents have worked out so far and carries on from there.
 - Plain language throughout: no branch, node, route, artifact, or proof-of-work.
 - No box carries a fill and a border of different colours.
 - Colour comes from Andalusian azulejo: cobalt, pale glaze, cream and terracotta
-  grout. The tile lattice appears twice, both times quietly: as texture on the
-  surface that needs you, and as one finished tile when nothing does.
+  grout. The tile appears in four places, all of them quiet: a border course down
+  the left edge, glaze texture on the surface that needs you, each agent as its
+  own motif, and progress laid in courses with grout between them. A completed
+  task is a single tile, set in green.
 - No neutral greys anywhere. Secondary text is tinted plum. States are raspberry
   (needs you), near-black (working), and emerald (completed).
 - Rules only where they separate something. Space does the rest.
