@@ -542,7 +542,12 @@ function setView(view) {
   cockpit.style.display = view === 'cockpit' ? 'block' : 'none';
   mapView.classList.toggle('visible', view === 'map');
   chatView.classList.toggle('visible', view === 'chat');
-  document.querySelector('.summary').style.display = view === 'chat' ? 'none' : 'flex';
+  // in a conversation the goal header is repetition: the breadcrumb already says where you are
+  var inChat = view === 'chat';
+  document.querySelector('.summary').style.display = inChat ? 'none' : 'flex';
+  document.getElementById('greeting').style.display = inChat ? 'none' : '';
+  document.getElementById('goalTitle').style.display = inChat ? 'none' : '';
+  document.getElementById('goalSubtitle').style.display = inChat ? 'none' : '';
   Array.prototype.forEach.call(document.querySelectorAll('[data-view]'), function (b) {
     b.classList.toggle('active', b.dataset.view === view);
   });
