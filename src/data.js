@@ -25,11 +25,11 @@ var goals = {
     agents: ['Release Agent', 'Support Triage'],
     branchDefault: 'Draft a status page for launch day',
     tasks: [
-      { id: 'l1', state: 'you', stage: 'decide', title: 'Decide what ships on day one', note: 'Two features are ready. The third needs another week.', agent: 'Release Agent', progress: 0, since: '8m',
-        holds: 'Write the launch notes', basis: 'l6', basisLabel: 'the migration dry run',
+      { id: 'l1', state: 'you', stage: 'decide', title: 'Choose what leads the launch', note: 'Both are ready. They serve different people.', agent: 'Release Agent', progress: 0, since: '8m',
+        holds: 'Write the launch notes', basis: 'l7', basisLabel: 'the beta tickets',
         options: [
-          { label: 'Ship the two that are ready', consequence: 'Launch Tuesday, the same morning the refreshed site goes live.', recommended: true },
-          { label: 'Wait and ship all three', consequence: 'Launch slips a week, and the site refresh sits finished but unused.' }
+          { label: 'Lead with the shared inbox', consequence: 'The thing beta users asked for most, and it absorbs the support load the migration creates.', recommended: true },
+          { label: 'Lead with the new editor', consequence: 'Demos better to new signups, but seven beta tickets still mention its scrolling bug.' }
         ] },
       { id: 'l2', state: 'you', stage: 'decide', title: 'Set the rollback trigger', note: 'How far signups can fall before v2 is pulled.', agent: 'Support Triage', progress: 0, since: '30m',
         holds: 'Watch for breakage reports',
