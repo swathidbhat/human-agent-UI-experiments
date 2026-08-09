@@ -203,7 +203,7 @@ function decisionCard(goal, task) {
     if (src) {
       var b = document.createElement('button');
       b.className = 'basis';
-      b.textContent = '↗ Based on ' + (task.basisLabel || '“' + src.title + '”');
+      b.textContent = 'See ' + (task.basisLabel || '“' + src.title + '”');
       b.title = 'See the work these numbers came from';
       b.addEventListener('click', function () {
         if (src.proof) openProof(src.proof); else openAgent(src.agent);
@@ -235,7 +235,7 @@ function decisionCard(goal, task) {
   acts.className = 'acts';
   var ask = agentButton(task.agent);
   ask.className = 'quiet-act';
-  ask.textContent = 'Ask ' + task.agent;
+  ask.textContent = 'See ' + task.agent;
   acts.appendChild(ask);
   card.append(options, acts);
   return card;
@@ -324,7 +324,7 @@ function taskRow(task, goal) {
   if (task.proof) {
     var open = document.createElement('button');
     open.className = 'proof';
-    open.textContent = '↗ Result';
+    open.textContent = 'See';
     open.addEventListener('click', function (e) { e.stopPropagation(); openProof(task.proof); });
     head.appendChild(open);
   }
@@ -516,7 +516,7 @@ function selectNode(key) {
     said.textContent = line[2];
     var open = document.createElement('button');
     open.className = 'panel-link';
-    open.textContent = 'Open conversation →';
+    open.textContent = 'See conversation';
     open.addEventListener('click', function () { openAgent(task.agent); });
     latest.append(who, said, open);
   } else latest.className = '';
@@ -529,7 +529,7 @@ function selectNode(key) {
     var sub = document.createElement('span'); sub.className = 'sub'; sub.textContent = 'Finished · ready to use';
     var see = document.createElement('button');
     see.className = 'panel-link';
-    see.textContent = 'See the result →';
+    see.textContent = 'See result';
     see.addEventListener('click', function () { openProof(task.proof); });
     result.append(n, sub, see);
   } else result.className = '';
