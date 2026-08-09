@@ -127,7 +127,8 @@ h1 { margin: 5px 0 0; font-family: var(--display); font-size: 24px; font-weight:
 .section { color: var(--ink); font-size: 13px; font-weight: 600; }
 .group .count { color: var(--faint); font-size: 11.5px; font-weight: 700; }
 .row { align-items: start; padding: 8px 0 9px; border-radius: 7px; font-size: 13.5px; }
-.row:hover { background: none; }
+.row { cursor: pointer; }
+.row:hover { background: var(--sunken); }
 .row .icons { display: flex; align-items: center; gap: 6px; margin-left: -5px; }
 .row .body { display: grid; min-width: 0; grid-template-columns: 21px minmax(0, 1fr); gap: 10px; align-items: start; }
 .row .headline { display: flex; grid-column: 2; align-items: center; gap: 8px; }

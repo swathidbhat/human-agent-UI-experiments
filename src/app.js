@@ -50,7 +50,7 @@ function agentButton(agent, size) {
   n.className = 'name';
   n.textContent = agent;
   b.appendChild(n);
-  b.addEventListener('click', function () { openAgent(agent); });
+  b.addEventListener('click', function (e) { e.stopPropagation(); openAgent(agent); });
   return b;
 }
 function branchDot(src) {
@@ -317,36 +317,28 @@ function taskRow(task, goal) {
     var open = document.createElement('button');
     open.className = 'proof';
     open.textContent = '↗ Result';
-    open.addEventListener('click', function () { openProof(task.proof); });
+    open.addEventListener('click', function (e) { e.stopPropagation(); openProof(task.proof); });
     head.appendChild(open);
   }
   if (task.state === 'motion') {
-    var tick = document.createElement('button');
-    tick.className = 'tick';
-    tick.textContent = '✓ Done';
-    tick.addEventListener('click', function () { completeTask(goal, task); });
-    head.appendChild(tick);
+    // an agent is doing this, so the move is to watch it, not to tick it off
+    var watch = document.createElement('button');
+    watch.className = 'tick';
+    watch.textContent = 'See';
+    watch.title = 'Watch ' + task.agent + ' work on this';
+    watch.addEventListener('click', function () { openAgent(task.agent); });
+    head.appendChild(watch);
   }
   var status = document.createElement('div');
   status.className = 'status';
   status.textContent = task.state === 'motion' && task.eta ? task.eta
     : (task.since === 'just now' ? 'just now' : task.since + ' ago');
   row.append(icons, body, meter(task.progress, task.state === 'motion' ? task.eta : null, task.state === 'complete'), status);
+  if (task.agent) {
+    row.title = 'Open ' + task.agent + ' working on this';
+    row.addEventListener('click', function () { openAgent(task.agent, task); });
+  }
   return row;
-}
-function completeTask(goal, task) {
-  var snap = { state: task.state, progress: task.progress, since: task.since, eta: task.eta, note: task.note };
-  task.state = 'complete';
-  task.progress = 100;
-  task.since = 'just now';
-  task.note = 'Marked done by you.';
-  delete task.eta;
-  render(goal);
-  toast('Marked done: ' + task.title, function () {
-    task.state = snap.state; task.progress = snap.progress; task.since = snap.since;
-    task.eta = snap.eta; task.note = snap.note;
-    render(goal);
-  });
 }
 
 /* ---------- counts, badges, greeting ---------- */
@@ -699,7 +691,7 @@ function chatLine(who, when, said, self, goal, idx) {
   row.append(av, block);
   return row;
 }
-function openAgent(agent) {
+function openAgent(agent, task) {
   var goal = goals[activeGoal];
   var thread = (goal.threads || {})[agent] || [[agent, 'now', 'Working inside this goal.']];
   var mine = goal.tasks.filter(function (t) { return t.agent === agent && t.state !== 'complete'; })
@@ -708,9 +700,10 @@ function openAgent(agent) {
   var av = document.getElementById('chatAvatar');
   av.innerHTML = '';
   av.appendChild(avatar(agent, 'lg'));
-  document.getElementById('chatContext').textContent = mine.length
-    ? 'On ' + goal.title.toLowerCase() + ' · ' + mine.join(' · ')
-    : 'On ' + goal.title.toLowerCase();
+  document.getElementById('chatContext').textContent = task
+    ? 'On ' + task.title.charAt(0).toLowerCase() + task.title.slice(1)
+    : (mine.length ? 'On ' + goal.title.toLowerCase() + ' · ' + mine.join(' · ')
+                   : 'On ' + goal.title.toLowerCase());
   var box = document.getElementById('chatThread');
   box.innerHTML = '';
   thread.forEach(function (l, i) { box.appendChild(chatLine(l[0], l[1], l[2], false, goal, i)); });
