@@ -151,12 +151,21 @@ function emptyState() {
   wrap.className = 'clear';
   var art = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   art.setAttribute('viewBox', '0 0 64 64');
-  art.setAttribute('width', '58');
-  art.setAttribute('height', '58');
-  art.innerHTML = '<circle cx="32" cy="32" r="21" fill="#f2f7f4"></circle>'
-    + '<path d="M14 41c7-3 11-3 18 0s11 3 18 0" fill="none" stroke="#067647" stroke-width="2" stroke-linecap="round" opacity=".6"></path>'
-    + '<path d="M18 33c6-2.4 9-2.4 14 0s8 2.4 14 0" fill="none" stroke="#067647" stroke-width="2" stroke-linecap="round" opacity=".32"></path>'
-    + '<circle cx="32" cy="22" r="4" fill="#101014"></circle>';
+  art.setAttribute('width', '64');
+  art.setAttribute('height', '64');
+  art.innerHTML =
+      '<rect x="1" y="1" width="62" height="62" rx="3" fill="#f2f6fc" stroke="#b07a4a" stroke-width="1.5"/>'
+    + '<g fill="none" stroke="#1740a0" stroke-width="2.2">'
+    + '<path d="M2 32Q32 32 32 2"/><path d="M32 2Q32 32 62 32"/>'
+    + '<path d="M62 32Q32 32 32 62"/><path d="M32 62Q32 32 2 32"/>'
+    + '</g>'
+    + '<g fill="none" stroke="#5b86d0" stroke-width="1.4">'
+    + '<path d="M12 32Q32 32 32 12"/><path d="M32 12Q32 32 52 32"/>'
+    + '<path d="M52 32Q32 32 32 52"/><path d="M32 52Q32 32 12 32"/>'
+    + '</g>'
+    + '<circle cx="32" cy="32" r="3.4" fill="#1740a0"/>'
+    + '<circle cx="9" cy="9" r="2" fill="#b07a4a"/><circle cx="55" cy="9" r="2" fill="#b07a4a"/>'
+    + '<circle cx="9" cy="55" r="2" fill="#b07a4a"/><circle cx="55" cy="55" r="2" fill="#b07a4a"/>';
   var text = document.createElement('div');
   text.innerHTML = '<b>Nothing needs you right now.</b><p>Three agents are working. You will be asked when a choice would change what they do.</p>';
   wrap.append(art, text);
