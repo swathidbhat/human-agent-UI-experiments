@@ -203,7 +203,11 @@ function decisionCard(goal, task) {
     if (src) {
       var b = document.createElement('button');
       b.className = 'basis';
-      b.textContent = 'See ' + (task.basisLabel || '“' + src.title + '”');
+      var lead = document.createElement('span');
+      lead.className = 'basis-of';
+      lead.textContent = 'Based on ' + (task.basisLabel || '“' + src.title + '”');
+      card.appendChild(lead);
+      b.textContent = '→ see';
       b.title = 'See the work these numbers came from';
       b.addEventListener('click', function () {
         if (src.proof) openProof(src.proof); else openAgent(src.agent);
@@ -235,7 +239,7 @@ function decisionCard(goal, task) {
   acts.className = 'acts';
   var ask = agentButton(task.agent);
   ask.className = 'quiet-act';
-  ask.textContent = 'See ' + task.agent;
+  ask.textContent = '→ see';
   acts.appendChild(ask);
   card.append(options, acts);
   return card;
@@ -324,7 +328,7 @@ function taskRow(task, goal) {
   if (task.proof) {
     var open = document.createElement('button');
     open.className = 'proof';
-    open.textContent = 'See';
+    open.textContent = '→ result';
     open.addEventListener('click', function (e) { e.stopPropagation(); openProof(task.proof); });
     head.appendChild(open);
   }
@@ -332,7 +336,7 @@ function taskRow(task, goal) {
     // an agent is doing this, so the move is to watch it, not to tick it off
     var watch = document.createElement('button');
     watch.className = 'tick';
-    watch.textContent = 'See';
+    watch.textContent = '→ see';
     watch.title = 'Watch ' + task.agent + ' work on this';
     watch.addEventListener('click', function () { openAgent(task.agent); });
     head.appendChild(watch);
@@ -516,7 +520,7 @@ function selectNode(key) {
     said.textContent = line[2];
     var open = document.createElement('button');
     open.className = 'panel-link';
-    open.textContent = 'See conversation';
+    open.textContent = '→ see';
     open.addEventListener('click', function () { openAgent(task.agent); });
     latest.append(who, said, open);
   } else latest.className = '';
@@ -529,7 +533,7 @@ function selectNode(key) {
     var sub = document.createElement('span'); sub.className = 'sub'; sub.textContent = 'Finished · ready to use';
     var see = document.createElement('button');
     see.className = 'panel-link';
-    see.textContent = 'See result';
+    see.textContent = '→ result';
     see.addEventListener('click', function () { openProof(task.proof); });
     result.append(n, sub, see);
   } else result.className = '';
