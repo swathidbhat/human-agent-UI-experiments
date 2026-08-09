@@ -14,117 +14,116 @@ var TIP = {
 var BRANCH_TIP = 'Add work here. It keeps everything worked out so far and carries on from here';
 
 var AGENTS = {
-  'Research Agent': { mark: 'RA', hue: '#101014' },
-  'Draft Agent':    { mark: 'DA', hue: '#26262d' },
-  'File Agent':     { mark: 'FA', hue: '#0a8f57' },
-  'Repo Agent':     { mark: 'RP', hue: '#5c5c68' },
-  'Build Agent':    { mark: 'BA', hue: '#101014' },
-  'Playtest Agent': { mark: 'PA', hue: '#0a8f57' }
+  'Slide Agent':  { mark: 'SL', motif: 'rosette' },
+  'Chart Agent':  { mark: 'CH', motif: 'leaf' },
+  'Image Agent':  { mark: 'IM', motif: 'star' },
+  'Print Agent':  { mark: 'PR', motif: 'lattice' },
+  'Config Agent': { mark: 'CF', motif: 'rosette' },
+  'Review Agent': { mark: 'RV', motif: 'leaf' }
 };
 
 var goals = {
-  article: {
-    title: 'Publish the agent interfaces piece',
-    subtitle: 'Turn four interviews and a pile of notes into something worth reading.',
-    agents: ['Research Agent', 'Draft Agent'],
-    branchDefault: 'Pull quotes for the social post',
+  deck: {
+    title: 'Get the deck ready for Thursday',
+    subtitle: 'Readable from the back of the room, and defensible in it.',
+    agents: ['Slide Agent', 'Chart Agent'],
+    branchDefault: 'Draft the answers to the three hardest questions',
     tasks: [
-      { id: 'a1', state: 'you', stage: 'decide', title: 'Choose what the piece argues', note: 'The interviews support two different pieces.', agent: 'Draft Agent', progress: 0, since: '6m',
-        holds: 'Rewrite the opening', basis: 'a5', basisLabel: 'the interview storybank',
+      { id: 'd1', state: 'you', stage: 'decide', title: 'Choose what slide one says', note: 'The finding and the method both work as an opener.', agent: 'Slide Agent', progress: 0, since: '7m',
+        holds: 'Rebuild the opening three slides', basis: 'd5', basisLabel: 'the readability audit',
         options: [
-          { label: 'Agents need a stable object', consequence: 'Reads as a design argument. Every interview already backs it.', recommended: true },
-          { label: 'Chat was the wrong default', consequence: 'Sharper and more contrarian, but only two interviews support it.' }
+          { label: 'Open with the finding', consequence: 'People leave remembering the number. Method moves to an appendix.', recommended: true },
+          { label: 'Open with the method', consequence: 'Earns the two skeptics early, and spends your first two minutes doing it.' }
         ] },
-      { id: 'a2', state: 'you', stage: 'decide', title: 'Pick who gets quoted', note: 'Two of the four asked to be anonymous.', agent: 'Research Agent', progress: 0, since: '40m',
+      { id: 'd2', state: 'you', stage: 'decide', title: 'Decide how dense the charts get', note: 'Three combined charts, or six that each say one thing.', agent: 'Chart Agent', progress: 0, since: '35m',
+        holds: 'Redraw the charts',
         options: [
-          { label: 'Name the two who agreed', consequence: 'Specific and checkable. The other two become paraphrase.', recommended: true },
-          { label: 'Anonymise all four', consequence: 'Consistent, but the piece loses its named sources.' }
+          { label: 'One claim per chart', consequence: 'Six slides instead of three, and nobody in the back row squints.', recommended: true },
+          { label: 'Keep them combined', consequence: 'A tighter deck that only the front two rows can actually read.' }
         ] },
-      { id: 'a3', state: 'motion', stage: 'build', title: 'Rewrite the opening', note: 'Holding at the second paragraph until the argument is settled.', agent: 'Draft Agent', progress: 30, since: '4m', eta: 'about 40m left',
-        why: 'The first two paragraphs decide whether anyone reads the rest.' },
-      { id: 'a4', state: 'motion', stage: 'build', title: 'Fix the heading hierarchy', note: 'Three sections are nested one level too deep.', agent: 'Draft Agent', progress: 62, since: '18m', eta: 'about 15m left',
-        why: 'The piece is long enough that the headings are the navigation.' },
-      { id: 'a5', state: 'motion', stage: 'learn', title: 'Sort the interview storybank', note: 'Tagging 41 excerpts by the claim they support.', agent: 'Research Agent', progress: 74, since: '11m', eta: 'about 20m left',
-        why: 'It shows which argument the interviews can actually carry.' },
-      { id: 'a6', state: 'complete', stage: 'learn', title: 'Question categories for agent PMs', note: 'Six categories, each with the interviews behind it.', agent: 'Research Agent', progress: 100, since: '2h', proof: 'Question categories for agent PMs',
-        why: 'It gave the interviews a shape before the writing started.' }
+      { id: 'd3', state: 'motion', stage: 'build', title: 'Rebuild the opening three slides', note: 'Both openers drafted, waiting to know which one leads.', agent: 'Slide Agent', progress: 35, since: '4m', eta: 'about 35m left',
+        why: 'The first ninety seconds decide how the rest is heard.' },
+      { id: 'd4', state: 'motion', stage: 'build', title: 'Redraw the charts', note: 'Rebuilding at 24pt minimum with the axes labelled in full.', agent: 'Chart Agent', progress: 58, since: '12m', eta: 'about 25m left',
+        why: 'Every chart in the current deck fails at the back of the room.' },
+      { id: 'd6', state: 'motion', stage: 'learn', title: 'Check each slide from the back row', note: 'Rendering at 4m viewing distance and flagging what disappears.', agent: 'Slide Agent', progress: null, since: '2m', eta: 'ongoing',
+        why: 'It catches the problem the room will catch, before the room does.' },
+      { id: 'd5', state: 'complete', stage: 'learn', title: 'Readability audit', note: 'Eleven of nineteen slides fail at four metres.', agent: 'Chart Agent', progress: 100, since: '1h', proof: 'Readability audit',
+        why: 'It turned a vague worry into a list of eleven specific slides.' }
     ],
     artifacts: {
-      'Question categories for agent PMs': {
-        result: 'Six categories: stable objects, delegation boundaries, proof of work, interruption cost, recovery from wrong turns, and what the person is still responsible for.',
-        reasoning: 'Grouping by what the PM was worried about, rather than by product area, put four interviews that sounded unrelated into the same category.',
-        sources: ['4 practitioner interviews, transcribed', '41 tagged excerpts', 'Design of Everyday Things, chapters 1 and 7']
+      'Readability audit': {
+        result: 'Eleven of nineteen slides fail at four metres. Nine fail on chart labels alone, and the other two on body text under 18pt.',
+        reasoning: 'Testing at viewing distance rather than by font size found problems that looked fine in the editor. The worst offenders were charts that were legible as images but not as data.',
+        sources: ['19 slides rendered at 4m', 'Room dimensions from the calendar invite', 'Projector resolution and contrast spec']
       }
     },
     threads: {
-      'Research Agent': [['Research Agent', '2h ago', 'Six categories hold across all four interviews. Stable objects is the only one every person raised unprompted.'], ['Research Agent', 'now', 'Tagging the storybank against those categories. 41 excerpts, about three quarters done.']],
-      'Draft Agent': [['Research Agent', '18m ago', 'Heading levels are inconsistent from section four onward. Fixing as I go.'], ['Draft Agent', 'now', 'Opening is drafted twice, once per argument. I can drop either in once you choose.']]
+      'Slide Agent': [['Slide Agent', '7m ago', 'Both openers are drafted. The finding version is 40 seconds shorter and lands the number first.'], ['Slide Agent', 'now', 'Rendering each slide at four metres as it changes, so nothing regresses while we fix the rest.']],
+      'Chart Agent': [['Chart Agent', '1h ago', 'Eleven of nineteen fail at four metres. Nine of those are chart labels, not body text.'], ['Chart Agent', 'now', 'Redrawing at 24pt minimum. Splitting the combined charts would fix six of them outright.']]
     }
   },
-  workspace: {
-    title: 'Get Documents under control',
-    subtitle: 'Four years of files, screenshots and half-finished repos.',
-    agents: ['File Agent', 'Repo Agent'],
-    branchDefault: 'Archive anything untouched for a year',
+  lavender: {
+    title: 'Finish the lavender series',
+    subtitle: 'Six pieces that hang together and survive being printed.',
+    agents: ['Image Agent', 'Print Agent'],
+    branchDefault: 'Try one piece at dusk',
     tasks: [
-      { id: 'w1', state: 'you', stage: 'decide', title: 'Decide how screenshots get filed', note: '1,900 of them, and the two schemes disagree.', agent: 'File Agent', progress: 0, since: '25m',
-        holds: 'Classify the desktop screenshots', basis: 'w5', basisLabel: 'the folder review',
+      { id: 'v1', state: 'you', stage: 'decide', title: 'Pick the palette the set commits to', note: 'The studies drifted warm. The garden ones did not.', agent: 'Image Agent', progress: 0, since: '18m',
+        holds: 'Render the remaining four', basis: 'v4', basisLabel: 'the proof prints',
         options: [
-          { label: 'By project', consequence: 'Matches how you look for them. Roughly 300 will not fit anywhere.', recommended: true },
-          { label: 'By month', consequence: 'Every file lands somewhere, but finding one means remembering when.' }
+          { label: 'Cooler, as the garden reads', consequence: 'Holds together as a set, and the lavender survives printing.', recommended: true },
+          { label: 'Warmer, as the studies read', consequence: 'Closer to the originals, and the lavender goes muddy on paper.' }
         ] },
-      { id: 'w2', state: 'motion', stage: 'build', title: 'Classify the desktop screenshots', note: 'Reading each one and proposing a folder.', agent: 'File Agent', progress: 48, since: '7m', eta: 'about 1h left',
-        why: 'The desktop is where everything lands and nothing leaves.' },
-      { id: 'w3', state: 'motion', stage: 'learn', title: 'Count the repos under Contributions', note: 'Walking the folder and checking each for a remote.', agent: 'Repo Agent', progress: null, since: '2m', eta: 'ongoing',
-        why: 'You cannot tidy what you have not counted.' },
-      { id: 'w4', state: 'motion', stage: 'build', title: 'Add the no-slop rule globally', note: 'Moving it from three project configs into one place.', agent: 'Repo Agent', progress: 35, since: '30m', eta: 'about 25m left',
-        why: 'It is already written three times and drifts every time it is copied.' },
-      { id: 'w5', state: 'complete', stage: 'learn', title: 'Folder review', note: 'Mapped what is where and what has not been opened in a year.', agent: 'File Agent', progress: 100, since: '3h', proof: 'Folder review',
-        why: 'It found the four folders holding most of the mess.' }
+      { id: 'v2', state: 'motion', stage: 'build', title: 'Render the remaining four', note: 'Two done at both palettes so the choice is reversible.', agent: 'Image Agent', progress: 45, since: '6m', eta: 'about 50m left',
+        why: 'Six is the smallest set that reads as a series rather than as attempts.' },
+      { id: 'v3', state: 'motion', stage: 'learn', title: 'Test how lavender prints', note: 'Same swatch on three papers, checking where the purple collapses.', agent: 'Print Agent', progress: 30, since: '20m', eta: 'about 40m left',
+        why: 'Lavender is the one colour that will not survive a bad paper choice.' },
+      { id: 'v4', state: 'complete', stage: 'learn', title: 'Proof prints', note: 'Two pieces, three papers, warm and cool side by side.', agent: 'Print Agent', progress: 100, since: '2h', proof: 'Proof prints',
+        why: 'Seeing them on paper is the only way this decision can be made honestly.' }
     ],
     artifacts: {
-      'Folder review': {
-        result: 'Nine top-level folders. Four hold 80% of the files. Two have not been opened in over a year and can be archived whole.',
-        reasoning: 'Sorting by last-opened rather than by size found the dead weight fast. The big folders turned out to be the active ones.',
-        sources: ['Documents tree, 9 folders and 12,400 files', 'Last-opened timestamps', 'Contributions folder, 34 repos']
+      'Proof prints': {
+        result: 'On matte, the warm palette loses the lavender entirely and reads brown. The cool palette holds on all three papers.',
+        reasoning: 'The warm version looked better on screen, which is exactly why it needed proofing. Screen backlighting was carrying a purple the paper cannot.',
+        sources: ['2 pieces printed on 3 papers', 'Warm and cool palettes side by side', 'Original garden reference photos']
       }
     },
     threads: {
-      'File Agent': [['File Agent', '3h ago', 'Four folders hold most of it. Two more have not been opened since last year and can go whole.'], ['File Agent', 'now', 'Classifying screenshots. About 300 do not belong to any project, which is what the filing decision is really about.']],
-      'Repo Agent': [['Repo Agent', '30m ago', 'The no-slop rule exists in three configs and they have already drifted apart.'], ['Repo Agent', 'now', 'Counting repos under Contributions. 34 folders so far, 11 with no remote.']]
+      'Image Agent': [['Image Agent', '18m ago', 'Rendering two of the four at both palettes, so whichever you pick nothing is wasted.'], ['Image Agent', 'now', 'The cool palette is more consistent across the set. The warm one drifts piece to piece.']],
+      'Print Agent': [['Print Agent', '2h ago', 'Warm goes brown on matte. Cool holds on all three papers, including the cheap one.'], ['Print Agent', 'now', 'Running the same swatch on the last paper to see where the purple gives out.']]
     }
   },
-  game: {
-    title: 'Make trashketball playable',
-    subtitle: 'Get the build good enough to hand to someone else.',
-    agents: ['Build Agent', 'Playtest Agent'],
-    branchDefault: 'Try a two-player mode',
+  standards: {
+    title: 'Make every project follow the same rules',
+    subtitle: 'One set of standards, not three copies quietly drifting apart.',
+    agents: ['Config Agent', 'Review Agent'],
+    branchDefault: 'Add a rule about commit messages',
     tasks: [
-      { id: 'g1', state: 'you', stage: 'decide', title: 'Choose how a throw is aimed', note: 'Both feel fine to you. They do not feel the same to a first-timer.', agent: 'Build Agent', progress: 0, since: '14m',
-        holds: 'Tune the throw physics', basis: 'g4', basisLabel: 'the playtest notes',
+      { id: 's1', state: 'you', stage: 'decide', title: 'Decide where the rules live', note: 'They exist three times already and have started disagreeing.', agent: 'Config Agent', progress: 0, since: '22m',
+        holds: 'Move the writing rules to one place', basis: 's5', basisLabel: 'the drift report',
         options: [
-          { label: 'Drag back and release', consequence: 'Everyone got it without being told. Harder to be precise with.', recommended: true },
-          { label: 'Tap to set power, tap to throw', consequence: 'More control once learned, but three of five testers missed the second tap.' }
+          { label: 'One global set', consequence: 'Every project inherits. Overriding one takes a deliberate step.', recommended: true },
+          { label: 'Per project, copied', consequence: 'Easier to bend locally, and they drift apart again within a month.' }
         ] },
-      { id: 'g2', state: 'motion', stage: 'build', title: 'Tune the throw physics', note: 'Arc is right, bounce off the rim is still wrong.', agent: 'Build Agent', progress: 55, since: '5m', eta: 'about 30m left',
-        why: 'The rim bounce is the moment people either laugh or quit.' },
-      { id: 'g3', state: 'motion', stage: 'build', title: 'Light the court', note: 'One key light, and a shadow that lands under the ball.', agent: 'Build Agent', progress: 20, since: '22m', eta: 'about 1h left',
-        why: 'Without a shadow nobody can tell how far away the bin is.' },
-      { id: 'g4', state: 'motion', stage: 'learn', title: 'Collect playtest notes', note: 'Five people so far, watching where they hesitate.', agent: 'Playtest Agent', progress: null, since: '9m', eta: 'ongoing',
-        why: 'It tells you which controls need explaining, which means they need changing.' },
-      { id: 'g5', state: 'complete', stage: 'learn', title: 'Court and bin blockout', note: 'Proportions settled at 3:2, bin at regulation height.', agent: 'Build Agent', progress: 100, since: '1h', proof: 'Court and bin blockout',
-        why: 'Everything else is tuned against these proportions.' }
+      { id: 's2', state: 'motion', stage: 'build', title: 'Move the writing rules to one place', note: 'Reconciling the three versions into one before moving it.', agent: 'Config Agent', progress: 40, since: '9m', eta: 'about 30m left',
+        why: 'Three copies means the rule you get depends on which folder you opened.' },
+      { id: 's3', state: 'motion', stage: 'build', title: 'Install the engineering plugin everywhere', note: 'Eleven of thirty-four repos still without it.', agent: 'Config Agent', progress: 68, since: '15m', eta: 'about 20m left',
+        why: 'A standard that only some projects have is not a standard.' },
+      { id: 's4', state: 'motion', stage: 'learn', title: 'Watch what the rules actually catch', note: 'Logging every time a rule fires and whether it was right.', agent: 'Review Agent', progress: null, since: '4m', eta: 'ongoing',
+        why: 'A rule that never fires is clutter; one that fires wrongly is worse.' },
+      { id: 's5', state: 'complete', stage: 'learn', title: 'Drift report', note: 'The three copies now disagree in seven places.', agent: 'Review Agent', progress: 100, since: '3h', proof: 'Drift report',
+        why: 'It showed the copies had stopped being copies months ago.' }
     ],
     artifacts: {
-      'Court and bin blockout': {
-        result: 'Court 3:2, bin at 1.05m, throw line at 4m. Every later measurement is relative to these three.',
-        reasoning: 'Regulation height felt too easy at desk scale, so the throw line moved back rather than the bin going up. Moving the bin broke the shadow read.',
-        sources: ['Five blockout passes', 'Regulation bin dimensions', 'Playtest session 1, three players']
+      'Drift report': {
+        result: 'Seven disagreements across three copies. Four are harmless wording, three change what actually gets flagged, and one contradicts the other two outright.',
+        reasoning: 'Comparing them line by line rather than file by file found the contradictions. Two of the copies were edited on the same day in opposite directions.',
+        sources: ['3 config copies, line-by-line diff', 'Edit history for each', '34 repos under Contributions']
       }
     },
     threads: {
-      'Build Agent': [['Build Agent', '1h ago', 'Blockout is settled. Court 3:2, bin at regulation height, throw line at 4m.'], ['Build Agent', 'now', 'Arc feels right. The rim bounce still sends the ball straight up, which nobody expects.']],
-      'Playtest Agent': [['Playtest Agent', '9m ago', 'Five testers. Everyone understood drag-and-release without being told. Three missed the second tap on the other scheme.'], ['Playtest Agent', 'now', 'Watching where people hesitate rather than whether they score. Hesitation is the signal.']]
+      'Config Agent': [['Config Agent', '22m ago', 'Three copies, seven disagreements. One of them contradicts the other two, so something has been silently wrong.'], ['Config Agent', 'now', 'Reconciling into a single set. Where they conflict I am keeping the strictest version and noting it.']],
+      'Review Agent': [['Review Agent', '3h ago', 'The copies stopped matching months ago. Two were edited the same day in opposite directions.'], ['Review Agent', 'now', 'Logging every rule that fires and whether it was right, so the useless ones can be dropped.']]
     }
   }
 };

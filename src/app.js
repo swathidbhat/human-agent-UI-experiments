@@ -33,13 +33,20 @@ function glyphSvg(state, big) {
   svg.insertBefore(t, svg.firstChild);
   return svg;
 }
+var MOTIF = {
+  rosette: '<path d="M1 8Q8 8 8 1M8 1Q8 8 15 8M15 8Q8 8 8 15M8 15Q8 8 1 8"/><circle cx="8" cy="8" r="1.5" fill="#1740a0" stroke="none"/>',
+  leaf:    '<path d="M3 13Q8 12 11 8T13 3"/><path d="M4.5 9.5Q8 10 9.5 6.5"/><path d="M7 12Q10.5 12 12 8.5"/>',
+  star:    '<path d="M8 1v14M1 8h14"/><path d="M3.4 3.4l9.2 9.2M12.6 3.4l-9.2 9.2"/><circle cx="8" cy="8" r="1.4" fill="#1740a0" stroke="none"/>',
+  lattice: '<path d="M8 1L15 8L8 15L1 8Z"/><path d="M8 4.8L11.2 8L8 11.2L4.8 8Z"/>'
+};
 function avatar(agent, size) {
-  var a = AGENTS[agent] || { mark: agent.slice(0, 2).toUpperCase(), hue: '#4f5b58' };
+  var a = AGENTS[agent] || { mark: agent.slice(0, 2).toUpperCase(), motif: 'rosette' };
   var el = document.createElement('span');
   el.className = 'avatar' + (size ? ' ' + size : '');
-  el.style.background = a.hue;
-  el.textContent = a.mark;
   el.title = agent;
+  el.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true">'
+    + '<g fill="none" stroke="#1740a0" stroke-width="1.3" stroke-linecap="round">'
+    + (MOTIF[a.motif] || MOTIF.rosette) + '</g></svg>';
   return el;
 }
 function agentButton(agent, size) {
@@ -704,7 +711,7 @@ function chatLine(who, when, said, self, goal, idx) {
   var row = document.createElement('div');
   row.className = 'msg' + (self ? ' self' : '');
   var av = avatar(self ? 'You' : who);
-  if (self) { av.textContent = 'YOU'; av.style.background = '#101014'; }
+  if (self) { av.innerHTML = ''; av.className = 'avatar self-mark'; av.textContent = 'You'; }
   var block = document.createElement('div');
   var text = document.createElement('div');
   text.className = 'said' + (self ? ' bubble' : '');

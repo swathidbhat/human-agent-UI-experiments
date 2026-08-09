@@ -12,10 +12,10 @@ var TIP = {
 var BRANCH_TIP = 'Add work here. It keeps everything worked out so far and carries on from here';
 
 var AGENTS = {
-  'Release Agent':   { mark: 'RA', hue: '#1740a0' },
-  'Support Triage':  { mark: 'ST', hue: '#16233d' },
-  'Content Agent':   { mark: 'CA', hue: '#0f6b52' },
-  'Site Builder':    { mark: 'SB', hue: '#b07a4a' }
+  'Release Agent':   { mark: 'RA', motif: 'rosette' },
+  'Support Triage':  { mark: 'ST', motif: 'leaf' },
+  'Content Agent':   { mark: 'CA', motif: 'star' },
+  'Site Builder':    { mark: 'SB', motif: 'lattice' }
 };
 
 var goals = {
