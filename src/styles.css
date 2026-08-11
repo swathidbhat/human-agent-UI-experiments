@@ -15,7 +15,7 @@
   --done-soft: #e4f0eb;
   --gutter: 46px;
   --col-progress: 150px;
-  --col-when: 96px;
+  --col-when: 128px;
   --display: Optima, "Gill Sans", sans-serif;
   --sans: "Helvetica Neue", Helvetica, sans-serif;
 }
@@ -157,7 +157,7 @@ h1 { margin: 18px 0 0; font-family: var(--display); font-size: 24px; font-weight
 .bar i { display: block; height: 100%; background: var(--cobalt); }
 .pct { width: 34px; color: var(--ink); font-size: 12px; text-align: right; }
 .eta { display: none; }
-.ongoing { display: block; padding-top: 3px; color: var(--muted); font-size: 12px; text-align: right; }
+.ongoing { display: block; padding-top: 3px; padding-right: 12px; color: var(--muted); font-size: 12px; text-align: right; }
 .row.complete .bar i { background: var(--done); }
 .row.complete .pct { color: var(--done); }
 .status { padding-top: 3px; color: var(--muted); font-size: 12px; text-align: right; white-space: nowrap; }
