@@ -474,9 +474,15 @@ function drawEdges() {
   }
   var pairs = [];
   goal.tasks.forEach(function (t) {
-    if (!t.holds) return;
-    var target = goal.tasks.filter(function (x) { return x.title === t.holds; })[0];
-    if (target) pairs.push([t.key, target.key, false]);
+    if (t.holds) {
+      var target = goal.tasks.filter(function (x) { return x.title === t.holds; })[0];
+      if (target) pairs.push([t.key, target.key, false]);
+    }
+    // what a decision was built on is as real a link as what it is blocking
+    if (t.basis) {
+      var src = taskById(goal, t.basis);
+      if (src) pairs.push([src.key, t.key, false]);
+    }
   });
   goal.branches.forEach(function (b) {
     var from = goal.tasks.filter(function (t) { return t.state === 'you'; })[0] || goal.tasks[0];
@@ -486,14 +492,22 @@ function drawEdges() {
   pairs.forEach(function (p) {
     var a = at(p[0]), b = at(p[1]);
     if (!a || !b || a.r > b.l) return;
-    var x1 = a.r + 8, x2 = b.l - 8, mid = (x1 + x2) / 2;
+    var x1 = a.r + 6, x2 = b.l - 6, mid = (x1 + x2) / 2;
     var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', 'M' + x1 + ' ' + a.y + ' C' + mid + ' ' + a.y + ' ' + mid + ' ' + b.y + ' ' + x2 + ' ' + b.y);
     if (p[2]) path.setAttribute('class', 'dash');
     edgeLayer.appendChild(path);
   });
 }
-window.addEventListener('resize', drawEdges);
+function aimNotch(key) {
+  var panel = document.querySelector('.map-view .panel');
+  var node = document.querySelector('.node[data-node="' + key + '"]');
+  if (!panel || !node) return;
+  var p = panel.getBoundingClientRect(), n = node.getBoundingClientRect();
+  var y = n.top - p.top + n.height / 2;
+  panel.style.setProperty('--notch-y', Math.max(16, Math.min(p.height - 16, y)) + 'px');
+}
+window.addEventListener('resize', function () { drawEdges(); if (selectedKey) aimNotch(selectedKey); });
 
 function selectNode(key) {
   var goal = goals[activeGoal];
@@ -508,11 +522,41 @@ function selectNode(key) {
   gs.appendChild(glyphSvg(task.state));
   document.getElementById('panelWord').textContent = LABEL[task.state];
   document.getElementById('nodeTitle').textContent = task.title;
+  aimNotch(key);
   document.getElementById('nodeCopy').textContent = task.note;
   document.getElementById('nodeReason').textContent = task.why || '';
   var m = document.getElementById('panelMeter');
   m.innerHTML = '';
   if (task.state !== 'you') m.appendChild(meter(task.progress, task.eta, task.state === 'complete'));
+
+  // a decision has to be decidable wherever it appears, not just on the overview
+  var opts = document.getElementById('panelOptions');
+  opts.innerHTML = '';
+  opts.className = '';
+  if (task.state === 'you' && task.options) {
+    opts.className = 'options';
+    task.options.forEach(function (option) {
+      var b = document.createElement('button');
+      b.className = 'option';
+      var head = document.createElement('span');
+      head.className = 'o-head';
+      var lab = document.createElement('b');
+      lab.textContent = option.label;
+      head.appendChild(lab);
+      if (option.recommended) {
+        var rec = document.createElement('span');
+        rec.className = 'rec';
+        rec.textContent = 'Recommended';
+        head.appendChild(rec);
+      }
+      var con = document.createElement('span');
+      con.className = 'o-why';
+      con.textContent = option.consequence;
+      b.append(head, con);
+      b.addEventListener('click', function () { resolveDecision(goal, task, option); });
+      opts.appendChild(b);
+    });
+  }
 
   var dep = document.getElementById('panelDep');
   dep.innerHTML = '';
@@ -581,7 +625,7 @@ function setView(view) {
     crumb.className = '';
     crumb.onclick = null;
   }
-  if (view === 'map') drawEdges();
+  if (view === 'map') { drawEdges(); if (selectedKey) aimNotch(selectedKey); }
 }
 Array.prototype.forEach.call(document.querySelectorAll('[data-view]'), function (b) {
   b.addEventListener('click', function () { setView(b.dataset.view); });

@@ -48,7 +48,11 @@ inherits everything the agents have worked out so far and carries on from there.
 - A task is live work, not a record. Clicking a row opens the feed of the agent
   doing it, focused on that task, rather than a properties panel.
 - Stages is derived from the tasks themselves, so the two views cannot disagree.
-  Connectors are drawn only where a real dependency exists.
+  Connectors are drawn for both kinds of dependency: what a decision is holding
+  up, and what it was built on.
+- The Stages panel is a surface, not a fourth column, and a notch on its edge
+  points at the node it is describing. A decision can be made from it, so
+  "needs you" is never just an announcement.
 
 ## Design constraints it was built under
 

@@ -31,7 +31,6 @@ var goals = {
           { label: 'Lead with the new editor', consequence: 'Demos better to new signups, but seven beta tickets still mention its scrolling bug.' }
         ] },
       { id: 'l2', state: 'you', stage: 'decide', title: 'Set the rollback trigger', note: 'How far signups can fall before v2 is pulled.', agent: 'Support Triage', progress: 0, since: '30m',
-        holds: 'Watch for breakage reports',
         options: [
           { label: 'Below 60% of normal for a day', consequence: 'Catches a real problem without panicking on a quiet Tuesday.', recommended: true },
           { label: 'Only if the migration fails', consequence: 'Fewer false alarms, but a slow bleed goes unnoticed.' }
