@@ -8,6 +8,7 @@ index.html              the prototype — start here
 src/
   styles.css            all styling; the palette lives in :root
   data.js               vocabulary, agents, and the two seeded goals
+                        (the swish game study, and keeping a website updated)
   app.js                behaviour; expects data.js to have loaded first
   data.codex.js         an alternate scenario set; swap it in for data.js
 explorations/

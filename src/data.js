@@ -12,54 +12,56 @@ var TIP = {
 var BRANCH_TIP = 'Add work here. It keeps everything worked out so far and carries on from here';
 
 var AGENTS = {
-  'Release Agent':   { mark: 'RA', motif: 'rosette' },
-  'Support Triage':  { mark: 'ST', motif: 'leaf' },
+  'Tester':          { mark: 'TE', motif: 'rosette' },
+  'Analyzer':        { mark: 'AN', motif: 'leaf' },
+  'Website Updater': { mark: 'WU', motif: 'octagram' },
   'Content Agent':   { mark: 'CA', motif: 'star' },
   'Site Builder':    { mark: 'SB', motif: 'lattice' }
 };
 
 var goals = {
-  launch: {
-    title: 'Ship the v2 launch',
-    agents: ['Release Agent', 'Support Triage'],
-    branchDefault: 'Draft a status page for launch day',
+  swish: {
+    title: 'Keep the swish game study current',
+    agents: ['Tester', 'Analyzer', 'Website Updater'],
+    branchDefault: 'Chart score against cost per run',
     tasks: [
-      { id: 'l1', state: 'you', stage: 'decide', title: 'Choose what leads the launch', note: 'Both are ready. They serve different people.', agent: 'Release Agent', progress: 0, since: '8m',
-        holds: 'Write the launch notes', basis: 'l7', basisLabel: 'the beta tickets',
+      { id: 's1', state: 'you', stage: 'decide', title: 'Choose what the table leads with', note: 'The ranking answers one question or the other.', agent: 'Website Updater', progress: 0, since: '8m',
+        holds: 'Rebuild the results table', basis: 's6', basisLabel: 'the July numbers',
         options: [
-          { label: 'Lead with the shared inbox', consequence: 'The thing beta users asked for most, and it absorbs the support load the migration creates.', recommended: true },
-          { label: 'Lead with the new editor', consequence: 'Demos better to new signups, but seven beta tickets still mention its scrolling bug.' }
+          { label: 'Rank by score', consequence: 'Answers who plays best. The order barely moves between runs.', recommended: true },
+          { label: 'Rank by cost per point', consequence: 'Answers who plays best for the money. Cheaper models climb, and the order shifts whenever prices do.' }
         ] },
-      { id: 'l2', state: 'you', stage: 'decide', title: 'Set the rollback trigger', note: 'How far signups can fall before v2 is pulled.', agent: 'Support Triage', progress: 0, since: '30m',
+      { id: 's2', state: 'you', stage: 'decide', title: 'Decide what to do about the build with no logs', note: 'Its transcript aged out before it was saved.', agent: 'Analyzer', progress: 0, since: '30m',
+        holds: 'Rebuild the results table',
         options: [
-          { label: 'Below 60% of normal for a day', consequence: 'Catches a real problem without panicking on a quiet Tuesday.', recommended: true },
-          { label: 'Only if the migration fails', consequence: 'Fewer false alarms, but a slow bleed goes unnoticed.' }
+          { label: 'Drop the row until it can be rerun', consequence: 'Every figure on the site traces back to a saved log. One missing row costs less than one number nobody can check.', recommended: true },
+          { label: 'Publish it, marked unverifiable', consequence: 'Keeps the build in the table, and now some rows can be checked and some cannot.' }
         ] },
-      { id: 'l3', state: 'you', stage: 'decide', title: 'Choose when to email the 1,200', note: 'The announcement lands once. Timing is the whole thing.', agent: 'Release Agent', progress: 0, since: '52m',
-        holds: 'Write the launch notes',
+      { id: 's3', state: 'you', stage: 'decide', title: 'Choose how many runs per model', note: 'More runs steady the score. Each one costs money and time.', agent: 'Tester', progress: 0, since: '52m',
         options: [
-          { label: 'The morning it ships', consequence: 'One message, one moment. Support spikes for a day.', recommended: true },
-          { label: 'A day early, as a heads-up', consequence: 'Softer landing, but the news breaks before the product does.' }
+          { label: 'Three runs each', consequence: 'Steadies the score enough to trust a small gap between two models. Triples the bill.', recommended: true },
+          { label: 'One run each', consequence: 'Cheap and quick, and one lucky run can put a model two places too high.' }
         ] },
-      { id: 'l4', state: 'motion', stage: 'build', title: 'Move the 1,200 free accounts over', note: 'Moving them to the new free tier.', agent: 'Release Agent', progress: 66, since: '3m', eta: 'about 15m left',
-        why: 'Nobody can be locked out on launch morning.' },
-      { id: 'l5', state: 'motion', stage: 'build', title: 'Write the launch notes', note: 'Drafting the changelog and the email.', agent: 'Release Agent', progress: 30, since: '9m', eta: 'about 1h left',
-        why: 'The notes cannot be finished until you know what ships.' },
-      { id: 'l7', state: 'motion', stage: 'learn', title: 'Watch for breakage reports', note: 'Grouping beta tickets by feature.', agent: 'Support Triage', progress: null, since: '1m', eta: 'runs until launch',
-        why: 'It tells you fast if the migration broke something real.' },
-      { id: 'l6', state: 'complete', stage: 'learn', title: 'Migration dry run', note: 'Ran against a copy. Two failures, both fixed.', agent: 'Release Agent', progress: 100, since: '45m', proof: 'Migration dry run',
-        why: 'It found the accounts that would have broken on launch day.' }
+      { id: 's4', state: 'motion', stage: 'learn', title: 'Save the logs before they expire', note: 'Copying the runs for the four new builds.', agent: 'Tester', progress: 66, since: '3m', eta: 'about 15m left',
+        why: 'Transcripts get purged, and two builds already lost their figures that way.' },
+      { id: 's5', state: 'motion', stage: 'build', title: 'Rebuild the results table', note: 'Redoing the scores, the cost breakdown and the row counts.', agent: 'Analyzer', progress: 30, since: '9m', eta: 'about 1h left',
+        why: 'The table cannot be finished until you have said what it leads with.' },
+      { id: 's7', state: 'motion', stage: 'build', title: 'Refresh the charts on the site', note: 'Rebuilding them as each score lands.', agent: 'Website Updater', progress: null, since: '1m', eta: 'runs after every build',
+        why: 'It keeps the published charts matching the table they came from.' },
+      { id: 's6', state: 'complete', stage: 'learn', title: 'Check the July builds for contamination', note: 'Twelve builds checked. None could see another.', agent: 'Analyzer', progress: 100, since: '45m', proof: 'July contamination check',
+        why: 'A build that can see another build is measuring the copy, not the model.' }
     ],
     artifacts: {
-      'Migration dry run': {
-        result: '1,200 accounts moved in four minutes. Two failures, both on accounts created before the plans existed. Both now handled.',
-        reasoning: 'Nobody is paying yet, so a broken migration costs trust rather than revenue. Right now trust is the more expensive thing to lose.',
-        sources: ['Production snapshot, taken 06:12', 'Account table, 1,200 rows', 'Billing schema history since 2023']
+      'July contamination check': {
+        result: 'Twelve builds, none of them able to see another one\u2019s work. Two runs overlapped in time but not in workspace, so both numbers stand.',
+        reasoning: 'Overlap on the clock is fine. Overlap in the workspace is not, because a build that can read another build is measuring how well it copies. Only the second kind was worth failing a run over.',
+        sources: ['Saved run logs for all twelve builds', 'The timing window, prompt to delivery, used for every build', 'scripts/measure.py, so each number can be rerun']
       }
     },
     threads: {
-      'Release Agent': [['Release Agent', '45m ago', 'Dry run done. 1,200 accounts in four minutes, two failures, both created before plans existed. Fixed.'], ['Release Agent', 'now', 'Launch notes are half written. The opening paragraph changes depending on whether the third feature ships.']],
-      'Support Triage': [['Support Triage', '52m ago', 'Nine beta tickets so far. Seven mention the new editor, all the same scrolling bug.'], ['Support Triage', 'now', 'Grouping by feature so you see breakage by area instead of ticket by ticket.']]
+      'Tester': [['Tester', '45m ago', 'Four new builds finished. Logs are still on disk, so I am copying them now rather than after the scoring.'], ['Tester', 'now', 'One run per model right now. Two models are within a point of each other, which is inside what a single run can swing.']],
+      'Analyzer': [['Analyzer', '45m ago', 'Contamination check is clean across all twelve. Two overlapped in time, neither could read the other.'], ['Analyzer', 'now', 'One build has no saved log. I can compute its number but nobody could ever check it.']],
+      'Website Updater': [['Website Updater', '20m ago', 'Charts are rebuilt through the July builds.'], ['Website Updater', 'now', 'The table sorts by score today. Sorting by cost per point moves four models and changes who reads as the winner.']]
     }
   },
   website: {
