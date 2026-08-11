@@ -43,6 +43,8 @@ inherits everything the agents have worked out so far and carries on from there.
 - Every agent update can be rated, and every completed artifact opens to its
   result, the reasoning, and its sources.
 - The three counts at the top double as filters.
+- The greeting is workspace-level, not goal-level, so it sits in a pinned band
+  above the whole frame and does not change when you switch goals.
 - A task is live work, not a record. Clicking a row opens the feed of the agent
   doing it, focused on that task, rather than a properties panel.
 - Stages is derived from the tasks themselves, so the two views cannot disagree.

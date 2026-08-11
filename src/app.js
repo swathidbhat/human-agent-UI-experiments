@@ -214,49 +214,50 @@ function decisionCard(goal, task) {
   why.textContent = task.note + (task.holds ? ' This is holding up “' + task.holds + '”.' : '');
   card.append(top, h, why);
 
-  if (task.basis) {
-    var src = taskById(goal, task.basis);
-    if (src) {
-      var b = document.createElement('button');
-      b.className = 'basis';
-      var lead = document.createElement('span');
-      lead.className = 'basis-of';
-      lead.textContent = 'Based on ' + (task.basisLabel || '“' + src.title + '”');
-      card.appendChild(lead);
-      b.textContent = '→ see';
-      b.title = 'See the work these numbers came from';
-      b.addEventListener('click', function () {
-        if (src.proof) openProof(src.proof); else openAgent(src.agent);
-      });
-      card.appendChild(b);
-    }
-  }
-
   var options = document.createElement('div');
   options.className = 'options';
   task.options.forEach(function (option) {
     var b = document.createElement('button');
     b.className = 'option';
+    // title and mark share one row so both cards line up on the same baseline
+    var head = document.createElement('span');
+    head.className = 'o-head';
+    var lab = document.createElement('b');
+    lab.textContent = option.label;
+    head.appendChild(lab);
     if (option.recommended) {
       var rec = document.createElement('span');
       rec.className = 'rec';
       rec.textContent = 'Recommended';
-      b.appendChild(rec);
+      head.appendChild(rec);
     }
-    var lab = document.createElement('b');
-    lab.textContent = option.label;
     var con = document.createElement('span');
+    con.className = 'o-why';
     con.textContent = option.consequence;
-    b.append(lab, con);
+    b.append(head, con);
     b.addEventListener('click', function () { resolveDecision(goal, task, option); });
     options.appendChild(b);
   });
   var acts = document.createElement('div');
   acts.className = 'acts';
-  var ask = agentButton(task.agent);
-  ask.className = 'quiet-act';
-  ask.textContent = '→ see';
-  acts.appendChild(ask);
+  var src = task.basis ? taskById(goal, task.basis) : null;
+  if (src) {
+    var lead = document.createElement('span');
+    lead.className = 'basis-of';
+    lead.textContent = 'Based on ' + (task.basisLabel || '“' + src.title + '”');
+    var b = document.createElement('button');
+    b.className = 'quiet-act';
+    b.textContent = '→ see';
+    b.addEventListener('click', function () {
+      if (src.proof) openProof(src.proof); else openAgent(src.agent);
+    });
+    acts.append(lead, b);
+  } else {
+    var ask = agentButton(task.agent);
+    ask.className = 'quiet-act';
+    ask.textContent = '→ see';
+    acts.appendChild(ask);
+  }
   card.append(options, acts);
   return card;
 }
@@ -565,9 +566,7 @@ function setView(view) {
   // in a conversation the goal header is repetition: the breadcrumb already says where you are
   var inChat = view === 'chat';
   document.querySelector('.summary').style.display = inChat ? 'none' : 'flex';
-  document.getElementById('greeting').style.display = inChat ? 'none' : '';
   document.getElementById('goalTitle').style.display = inChat ? 'none' : '';
-  document.getElementById('goalSubtitle').style.display = inChat ? 'none' : '';
   Array.prototype.forEach.call(document.querySelectorAll('[data-view]'), function (b) {
     b.classList.toggle('active', b.dataset.view === view);
   });
@@ -612,7 +611,6 @@ function switchGoal(key) {
   var goal = goals[key];
   document.getElementById('crumbGoal').textContent = goal.title;
   document.getElementById('goalTitle').textContent = goal.title;
-  document.getElementById('goalSubtitle').textContent = goal.subtitle;
   var roster = document.getElementById('agentRoster');
   roster.innerHTML = '';
   goal.agents.forEach(function (a) { roster.appendChild(agentButton(a)); });

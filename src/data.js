@@ -21,7 +21,6 @@ var AGENTS = {
 var goals = {
   launch: {
     title: 'Ship the v2 launch',
-    subtitle: 'Get v2 out with paid plans, without losing the free accounts.',
     agents: ['Release Agent', 'Support Triage'],
     branchDefault: 'Draft a status page for launch day',
     tasks: [
@@ -66,7 +65,6 @@ var goals = {
   },
   website: {
     title: 'Keep website updated',
-    subtitle: 'Get the site ready for the v2 launch.',
     agents: ['Content Agent', 'Site Builder'],
     branchDefault: 'Add a customer logo wall',
     tasks: [
