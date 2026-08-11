@@ -168,7 +168,7 @@ h1 { margin: 18px 0 0; font-family: var(--display); font-size: 24px; font-weight
 /* ---------- flow ---------- */
 .map-view { display: none; }
 .map-view.visible { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 44px; }
-.flow { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px; min-height: 300px; }
+.flow { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(30px, 4vw, 56px); min-height: 300px; }
 main:has(.map-view.visible) { width: min(1200px, 100%); }
 .edge-layer { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; }
 .edge-layer path { fill: none; stroke: #c9d6e8; stroke-width: 1; }
@@ -282,3 +282,14 @@ main:has(.map-view.visible) { width: min(1200px, 100%); }
 .credit { margin: 44px 0 0; color: var(--faint); font-size: 11.5px; }
 @media (prefers-reduced-motion: no-preference) { .toast { animation: rise .18s ease-out; } }
 @keyframes rise { from { transform: translateY(6px); opacity: 0; } }
+
+/* three columns plus a side panel only fit above this; below it the panel drops under
+   the flow rather than squeezing the cards down to a word per line */
+@media (max-width: 1400px) {
+  .map-view.visible { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .map-view .flow { min-height: 0; }
+  .map-view .panel::before { display: none; }
+  .map-view .panel .options { grid-template-columns: 1fr 1fr; }
+  .map-view .panel .copy, .map-view .p-latest .said, .map-view .p-why { max-width: 640px; }
+  .map-view .p-dep { max-width: 320px; }
+}

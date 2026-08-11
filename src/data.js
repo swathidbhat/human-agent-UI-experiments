@@ -64,8 +64,8 @@ var goals = {
       'Website Updater': [['Website Updater', '20m ago', 'Charts are rebuilt through the July builds.'], ['Website Updater', 'now', 'The table sorts by score today. Sorting by cost per point moves four models and changes who reads as the winner.']]
     }
   },
-  website: {
-    title: 'Keep website updated',
+  prewave: {
+    title: 'Grow prewave',
     agents: ['Content Agent', 'Site Builder'],
     branchDefault: 'Add a customer logo wall',
     tasks: [
@@ -78,7 +78,7 @@ var goals = {
       { id: 'w2', state: 'motion', stage: 'build', title: 'Add the Customer Y case study', note: 'Writing it from the pilot interview.', agent: 'Content Agent', progress: 55, since: '8m', eta: 'about 30m left',
         why: 'The quote you approve becomes the headline of the study.' },
       { id: 'w3', state: 'motion', stage: 'build', title: 'Refresh the homepage', note: 'Rebuilding the hero and feature blocks.', agent: 'Site Builder', progress: 40, since: '3m', eta: 'about 45m left',
-        why: 'The page has to describe v2 on launch morning.' },
+        why: 'It is the first thing anyone who hears about you will look at.' },
       { id: 'w4', state: 'motion', stage: 'learn', title: 'Add the board of advisors to Team', note: 'Chasing four bios and headshots.', agent: 'Content Agent', progress: 25, since: '30m', eta: 'waiting on people',
         why: 'The Team page is the first one most investors open.' },
       { id: 'w5', state: 'complete', stage: 'learn', title: 'Homepage copy rewrite', note: 'New hero line and subhead are live.', agent: 'Content Agent', progress: 100, since: '1h', proof: 'Homepage copy rewrite',
