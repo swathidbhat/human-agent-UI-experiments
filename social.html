@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Goal cockpit, social card</title>
+    <link rel="stylesheet" href="src/social.css" />
+  </head>
+  <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <symbol id="g-you" viewBox="0 0 16 16">
+          <path d="M8 1.4 14.6 8 8 14.6 1.4 8Z" fill="#1740a0" />
+          <path d="M8 4.6v4.2M8 11.1v.1" stroke="#fff" stroke-width="1.5" stroke-linecap="round" />
+        </symbol>
+        <symbol id="g-motion" viewBox="0 0 16 16">
+          <path d="M4.1 2.1h7.8M4.1 13.9h7.8" fill="none" stroke="#16233d" stroke-width="1.7" stroke-linecap="round" />
+          <path d="M5.3 2.9h5.4L8 7.6Z" fill="#16233d" opacity=".26" />
+          <path d="M5.3 13.1h5.4L8 8.4Z" fill="#16233d" />
+        </symbol>
+        <symbol id="g-done" viewBox="0 0 16 16">
+          <rect x="1" y="1" width="14" height="14" rx="2.5" fill="#e4f0eb" stroke="#0f6b52" stroke-width="1.3" />
+          <g fill="none" stroke="#0f6b52" stroke-width="1.3" stroke-linecap="round">
+            <path d="M2.6 8Q8 8 8 2.6M8 2.6Q8 8 13.4 8M13.4 8Q8 8 8 13.4M8 13.4Q8 8 2.6 8" />
+          </g>
+          <circle cx="8" cy="8" r="1.3" fill="#0f6b52" />
+        </symbol>
+        <symbol id="t-rosette" viewBox="0 0 16 16">
+          <g fill="none" stroke="#1740a0" stroke-width="1.3"><path d="M2 8Q8 8 8 2"/><path d="M8 2Q8 8 14 8"/><path d="M14 8Q8 8 8 14"/><path d="M8 14Q8 8 2 8"/></g>
+        </symbol>
+        <symbol id="t-leaf" viewBox="0 0 16 16">
+          <path d="M3 13C3 7.5 6.2 4.3 11.7 4.3 11.7 9.8 8.5 13 3 13Z" fill="#1740a0"/>
+          <path d="M3.4 12.6 11.3 4.7" stroke="#fff" stroke-width="1.1"/>
+        </symbol>
+        <symbol id="t-star" viewBox="0 0 16 16">
+          <path d="M8 1.4 9.5 6.5 14.6 8 9.5 9.5 8 14.6 6.5 9.5 1.4 8 6.5 6.5Z" fill="#1740a0"/>
+        </symbol>
+        <symbol id="t-lattice" viewBox="0 0 16 16">
+          <g fill="none" stroke="#1740a0" stroke-width="1.35"><path d="M8 1.8 14.2 8 8 14.2 1.8 8Z"/></g>
+          <circle cx="8" cy="8" r="1.7" fill="#1740a0"/>
+        </symbol>
+        <symbol id="t-octagram" viewBox="0 0 16 16">
+          <g fill="none" stroke="#1740a0" stroke-width="1.3"><path d="M8 1.6 12.5 3.5 14.4 8 12.5 12.5 8 14.4 3.5 12.5 1.6 8 3.5 3.5Z"/></g>
+          <path d="M8 4.4 9 7 11.6 8 9 9 8 11.6 7 9 4.4 8 7 7Z" fill="#1740a0"/>
+        </symbol>
+        <symbol id="g-plus" viewBox="0 0 16 16"><path d="M8 3.2v9.6M3.2 8h9.6" /></symbol>
+        <symbol id="g-branch" viewBox="0 0 16 16">
+          <path d="M5 10.3V5.6" /><path d="M5 8.6c1.7 0 6-.4 6-2.9" />
+          <circle cx="5" cy="12.1" r="1.6" /><circle cx="11" cy="4.1" r="1.6" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <div class="stage" id="stage"></div>
+
+    <script src="src/data.js"></script>
+    <script src="src/social.js"></script>
+  </body>
+</html>

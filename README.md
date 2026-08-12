@@ -5,12 +5,15 @@ No build step, no dependencies, no network calls.
 
 ```
 index.html              the prototype — start here
+social.html             a feed-sized card of the same data, for posting
 src/
   styles.css            all styling; the palette lives in :root
   data.js               vocabulary, agents, and the two seeded goals
                         (the swish game study, and growing prewave)
   app.js                behaviour; expects data.js to have loaded first
   data.codex.js         an alternate scenario set; swap it in for data.js
+  social.css            the social card; imports styles.css for the palette
+  social.js             builds the card from the same goals data
 explorations/
   ten-aesthetics.html   ten visual treatments of the same task queue
   split-and-map.html    three ways to make "needs you" prominent, plus ten map layouts
@@ -72,8 +75,18 @@ inherits everything the agents have worked out so far and carries on from there.
 
 ## Published
 
-The cockpit is also live as a private artifact:
+The cockpit, as a private artifact:
 https://claude.ai/code/artifact/e4ad5d13-446d-4b71-9ec0-b8fc10fe56fd
+
+The social card, on its own link:
+https://claude.ai/code/artifact/21f7ae04-53f4-46b7-aa58-1dd2a2b3d84a
+
+The card is portrait, 4:5, and every size in it is set in `cqw`, so the whole
+composition scales with whatever width it is rendered at. It is typeset against
+a 504px timeline card, which is what Twitter actually gives an image on the
+desktop feed. At that width the question lands at 23px and the smallest line at
+11px. The app screen is not a good social image: at the same 504px its 13.5px
+body text renders under 5px.
 
 ## Walkthrough
 
