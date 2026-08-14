@@ -29,7 +29,7 @@ var goals = {
         holds: 'Publish the new rankings', basis: 's6', basisLabel: 'the July numbers',
         options: [
           { label: 'Rank by score', consequence: 'The best scores win, and the order rarely changes.', recommended: true },
-          { label: 'Rank by cost per point', consequence: 'Cheap models rise, and the order changes whenever prices do.' }
+          { label: 'Rank by cost', consequence: 'Cheap models rise, and the order changes whenever prices do.' }
         ] },
       { id: 's2', state: 'you', stage: 'decide', title: 'Decide whether the run with no log counts', note: 'Its log expired before we copied it.', agent: 'Analyzer', progress: 0, since: '30m',
         holds: 'Publish the new rankings',
@@ -44,7 +44,7 @@ var goals = {
         ] },
       { id: 's4', state: 'motion', stage: 'learn', title: 'Save the logs before they expire', note: 'Copying the logs for the four newest models.', agent: 'Tester', progress: 66, since: '3m', eta: 'about 15m left',
         why: 'Logs are purged after a week. Two models already lost their numbers that way.' },
-      { id: 's5', state: 'motion', stage: 'build', title: 'Publish the new rankings', note: 'Scores, cost per point, and how many runs each model got.', agent: 'Analyzer', progress: 30, since: '9m', eta: 'about 1h left',
+      { id: 's5', state: 'motion', stage: 'build', title: 'Publish the new rankings', note: 'Scores, cost, and how many runs each model got.', agent: 'Analyzer', progress: 30, since: '9m', eta: 'about 1h left',
         why: 'It cannot go out until you have said how to rank.' },
       { id: 's7', state: 'motion', stage: 'build', title: 'Refresh the charts on the site', note: 'Rebuilding each chart as its score lands.', agent: 'Website Updater', progress: null, since: '1m', eta: 'runs after every model',
         why: 'Keeps the charts matching the rankings.' },
@@ -61,7 +61,7 @@ var goals = {
     threads: {
       'Tester': [['Tester', '45m ago', 'Four new models finished. Their logs are still on disk, so I am copying them now rather than after scoring.'], ['Tester', 'now', 'One run per model so far. Two models are within a point of each other, which is inside what a single run can swing.']],
       'Analyzer': [['Analyzer', '45m ago', 'No model could read another. Two ran at the same time, in separate workspaces.'], ['Analyzer', 'now', 'One run has no saved log. I can still compute its number, but nobody could ever check it.']],
-      'Website Updater': [['Website Updater', '20m ago', 'Charts are current through the July runs.'], ['Website Updater', 'now', 'Ranking by score today. Ranking by cost per point moves four models and changes who comes first.']]
+      'Website Updater': [['Website Updater', '20m ago', 'Charts are current through the July runs.'], ['Website Updater', 'now', 'Ranking by score today. Ranking by cost moves four models and changes who comes first.']]
     }
   },
   prewave: {
