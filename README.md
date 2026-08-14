@@ -88,6 +88,16 @@ desktop feed. At that width the question lands at 23px and the smallest line at
 11px. The app screen is not a good social image: at the same 504px its 13.5px
 body text renders under 5px.
 
-## Walkthrough
+## Walkthroughs
+
+The app:
 
 ![Walkthrough of the goal cockpit](docs/walkthrough.gif)
+
+The social card, answering three decisions in a row:
+
+![Walkthrough of the social card](docs/social-walkthrough.gif)
+
+Both were captured with `--headless --screenshot` against
+`social.html?decided=N`, which pre-answers the first N decisions. Recording
+clicks was unreliable: the capture raced the re-render and collapsed frames.

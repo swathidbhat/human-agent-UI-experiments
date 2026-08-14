@@ -9,7 +9,8 @@ body { display: grid; place-items: center; min-height: 100vh; padding: 3vmin; ba
 .stage {
   container-type: inline-size;
   position: relative;
-  width: min(100%, 1080px);
+  /* never taller than the window, so the whole card is always in frame */
+  width: min(100%, calc((100vh - 6vmin) * 0.8), 1080px);
   aspect-ratio: 4 / 5;
   display: flex; flex-direction: column;
   padding: 5.5cqw 5.5cqw 5cqw calc(5.5cqw + 2cqw);
