@@ -28,18 +28,18 @@ var goals = {
       { id: 's1', state: 'you', stage: 'decide', title: 'Decide how games should be ranked', note: 'The two orders name different winners.', agent: 'Website Updater', progress: 0, since: '8m',
         holds: 'Publish the new rankings', basis: 's6', basisLabel: 'the July numbers',
         options: [
-          { label: 'Rank by score', consequence: 'Who plays best. The order holds steady from run to run.', recommended: true },
-          { label: 'Rank by cost per point', consequence: 'Who plays best per dollar. Cheap models climb, and the order moves whenever prices change.' }
+          { label: 'Rank by score', consequence: 'The best scores win, and the order rarely changes.', recommended: true },
+          { label: 'Rank by cost per point', consequence: 'Cheap models rise, and the order changes whenever prices do.' }
         ] },
       { id: 's2', state: 'you', stage: 'decide', title: 'Decide whether the run with no log counts', note: 'Its log expired before we copied it.', agent: 'Analyzer', progress: 0, since: '30m',
         holds: 'Publish the new rankings',
         options: [
-          { label: 'Leave it out until it can be rerun', consequence: 'Every number on the site traces back to a saved log. One missing model costs less than one number nobody can check.', recommended: true },
-          { label: 'Publish it, flagged as unverified', consequence: 'Keeps the model in the ranking, and now some numbers can be checked and some cannot.' }
+          { label: 'Leave it out until it can be rerun', consequence: 'One missing model costs less than one number nobody can check.', recommended: true },
+          { label: 'Publish it, flagged as unverified', consequence: 'Keeps the model in, but now some numbers can be checked and some cannot.' }
         ] },
       { id: 's3', state: 'you', stage: 'decide', title: 'Choose how many runs per model', note: 'More runs steady the score. Each one costs money.', agent: 'Tester', progress: 0, since: '52m',
         options: [
-          { label: 'Three runs each', consequence: 'Steady enough to trust a small gap between two models. Triples the bill.', recommended: true },
+          { label: 'Three runs each', consequence: 'Steady enough to trust a small gap, and it triples the bill.', recommended: true },
           { label: 'One run each', consequence: 'Cheap and quick, and one lucky run can put a model two places too high.' }
         ] },
       { id: 's4', state: 'motion', stage: 'learn', title: 'Save the logs before they expire', note: 'Copying the logs for the four newest models.', agent: 'Tester', progress: 66, since: '3m', eta: 'about 15m left',
@@ -72,8 +72,8 @@ var goals = {
       { id: 'w1', state: 'you', stage: 'decide', title: 'Approve the Customer Y quote', note: 'Customer Y signed off on two versions.', agent: 'Content Agent', progress: 0, since: '12m',
         holds: 'Add the Customer Y case study',
         options: [
-          { label: 'The version with the number', consequence: '“Onboarding went from six weeks to four days.” Stronger, needs their legal sign-off.', recommended: true },
-          { label: 'The softer version', consequence: '“Onboarding is dramatically faster.” Ships today, harder to believe.' }
+          { label: 'The version with the number', consequence: '“Onboarding went from six weeks to four days.” Stronger, but it needs their legal sign-off.', recommended: true },
+          { label: 'The softer version', consequence: '“Onboarding is dramatically faster.” Ships today, but it is harder to believe.' }
         ] },
       { id: 'w2', state: 'motion', stage: 'build', title: 'Add the Customer Y case study', note: 'Writing it from the pilot interview.', agent: 'Content Agent', progress: 55, since: '8m', eta: 'about 30m left',
         why: 'The quote you pick becomes the headline of the study.' },
