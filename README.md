@@ -9,7 +9,7 @@ social.html             a feed-sized card of the same data, for posting
 src/
   styles.css            all styling; the palette lives in :root
   data.js               vocabulary, agents, and the two seeded goals
-                        (the swish game study, and growing prewave)
+                        (the AI-for-games study, and growing prewave)
   app.js                behaviour; expects data.js to have loaded first
   data.codex.js         an alternate scenario set; swap it in for data.js
   social.css            the social card; imports styles.css for the palette

@@ -21,7 +21,7 @@ var AGENTS = {
 
 var goals = {
   swish: {
-    title: 'Keep the swish game study current',
+    title: 'Update the AI-for-games study',
     agents: ['Tester', 'Analyzer', 'Website Updater'],
     branchDefault: 'Chart score against cost per run',
     tasks: [
