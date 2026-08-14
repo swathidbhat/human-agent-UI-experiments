@@ -25,43 +25,43 @@ var goals = {
     agents: ['Tester', 'Analyzer', 'Website Updater'],
     branchDefault: 'Chart score against cost per run',
     tasks: [
-      { id: 's1', state: 'you', stage: 'decide', title: 'Choose what the table leads with', note: 'The ranking answers one question or the other.', agent: 'Website Updater', progress: 0, since: '8m',
-        holds: 'Rebuild the results table', basis: 's6', basisLabel: 'the July numbers',
+      { id: 's1', state: 'you', stage: 'decide', title: 'Decide how games should be ranked', note: 'The two orders name different winners.', agent: 'Website Updater', progress: 0, since: '8m',
+        holds: 'Publish the new rankings', basis: 's6', basisLabel: 'the July numbers',
         options: [
-          { label: 'Rank by score', consequence: 'Answers who plays best. The order barely moves between runs.', recommended: true },
-          { label: 'Rank by cost per point', consequence: 'Answers who plays best for the money. Cheaper models climb, and the order shifts whenever prices do.' }
+          { label: 'Rank by score', consequence: 'Who plays best. The order holds steady from run to run.', recommended: true },
+          { label: 'Rank by cost per point', consequence: 'Who plays best per dollar. Cheap models climb, and the order moves whenever prices change.' }
         ] },
-      { id: 's2', state: 'you', stage: 'decide', title: 'Decide what to do about the build with no logs', note: 'Its transcript aged out before it was saved.', agent: 'Analyzer', progress: 0, since: '30m',
-        holds: 'Rebuild the results table',
+      { id: 's2', state: 'you', stage: 'decide', title: 'Decide whether the run with no log counts', note: 'Its log expired before we copied it.', agent: 'Analyzer', progress: 0, since: '30m',
+        holds: 'Publish the new rankings',
         options: [
-          { label: 'Drop the row until it can be rerun', consequence: 'Every figure on the site traces back to a saved log. One missing row costs less than one number nobody can check.', recommended: true },
-          { label: 'Publish it, marked unverifiable', consequence: 'Keeps the build in the table, and now some rows can be checked and some cannot.' }
+          { label: 'Leave it out until it can be rerun', consequence: 'Every number on the site traces back to a saved log. One missing model costs less than one number nobody can check.', recommended: true },
+          { label: 'Publish it, flagged as unverified', consequence: 'Keeps the model in the ranking, and now some numbers can be checked and some cannot.' }
         ] },
-      { id: 's3', state: 'you', stage: 'decide', title: 'Choose how many runs per model', note: 'More runs steady the score. Each one costs money and time.', agent: 'Tester', progress: 0, since: '52m',
+      { id: 's3', state: 'you', stage: 'decide', title: 'Choose how many runs per model', note: 'More runs steady the score. Each one costs money.', agent: 'Tester', progress: 0, since: '52m',
         options: [
-          { label: 'Three runs each', consequence: 'Steadies the score enough to trust a small gap between two models. Triples the bill.', recommended: true },
+          { label: 'Three runs each', consequence: 'Steady enough to trust a small gap between two models. Triples the bill.', recommended: true },
           { label: 'One run each', consequence: 'Cheap and quick, and one lucky run can put a model two places too high.' }
         ] },
-      { id: 's4', state: 'motion', stage: 'learn', title: 'Save the logs before they expire', note: 'Copying the runs for the four new builds.', agent: 'Tester', progress: 66, since: '3m', eta: 'about 15m left',
-        why: 'Transcripts get purged, and two builds already lost their figures that way.' },
-      { id: 's5', state: 'motion', stage: 'build', title: 'Rebuild the results table', note: 'Redoing the scores, the cost breakdown and the row counts.', agent: 'Analyzer', progress: 30, since: '9m', eta: 'about 1h left',
-        why: 'The table cannot be finished until you have said what it leads with.' },
-      { id: 's7', state: 'motion', stage: 'build', title: 'Refresh the charts on the site', note: 'Rebuilding them as each score lands.', agent: 'Website Updater', progress: null, since: '1m', eta: 'runs after every build',
-        why: 'It keeps the published charts matching the table they came from.' },
-      { id: 's6', state: 'complete', stage: 'learn', title: 'Check the July builds for contamination', note: 'Twelve builds checked. None could see another.', agent: 'Analyzer', progress: 100, since: '45m', proof: 'July contamination check',
-        why: 'A build that can see another build is measuring the copy, not the model.' }
+      { id: 's4', state: 'motion', stage: 'learn', title: 'Save the logs before they expire', note: 'Copying the logs for the four newest models.', agent: 'Tester', progress: 66, since: '3m', eta: 'about 15m left',
+        why: 'Logs are purged after a week. Two models already lost their numbers that way.' },
+      { id: 's5', state: 'motion', stage: 'build', title: 'Publish the new rankings', note: 'Scores, cost per point, and how many runs each model got.', agent: 'Analyzer', progress: 30, since: '9m', eta: 'about 1h left',
+        why: 'It cannot go out until you have said how to rank.' },
+      { id: 's7', state: 'motion', stage: 'build', title: 'Refresh the charts on the site', note: 'Rebuilding each chart as its score lands.', agent: 'Website Updater', progress: null, since: '1m', eta: 'runs after every model',
+        why: 'Keeps the charts matching the rankings.' },
+      { id: 's6', state: 'complete', stage: 'learn', title: 'Check whether any model could see another', note: 'Twelve checked. None of them could.', agent: 'Analyzer', progress: 100, since: '45m', proof: 'July answer-sharing check',
+        why: 'A model that can read another one’s answers is being scored on copying.' }
     ],
     artifacts: {
-      'July contamination check': {
-        result: 'Twelve builds, none of them able to see another one\u2019s work. Two runs overlapped in time but not in workspace, so both numbers stand.',
-        reasoning: 'Overlap on the clock is fine. Overlap in the workspace is not, because a build that can read another build is measuring how well it copies. Only the second kind was worth failing a run over.',
-        sources: ['Saved run logs for all twelve builds', 'The timing window, prompt to delivery, used for every build', 'scripts/measure.py, so each number can be rerun']
+      'July answer-sharing check': {
+        result: 'Twelve models, none of them able to read another one\u2019s work. Two ran at the same time but in separate workspaces, so both numbers stand.',
+        reasoning: 'Running at the same time is fine. Sharing a workspace is not, because a model that can read another one\u2019s answers is being scored on copying. Only the second kind was worth failing a run over.',
+        sources: ['Saved logs for all twelve models', 'Start and finish times for every run', 'scripts/measure.py, so any number can be recomputed']
       }
     },
     threads: {
-      'Tester': [['Tester', '45m ago', 'Four new builds finished. Logs are still on disk, so I am copying them now rather than after the scoring.'], ['Tester', 'now', 'One run per model right now. Two models are within a point of each other, which is inside what a single run can swing.']],
-      'Analyzer': [['Analyzer', '45m ago', 'Contamination check is clean across all twelve. Two overlapped in time, neither could read the other.'], ['Analyzer', 'now', 'One build has no saved log. I can compute its number but nobody could ever check it.']],
-      'Website Updater': [['Website Updater', '20m ago', 'Charts are rebuilt through the July builds.'], ['Website Updater', 'now', 'The table sorts by score today. Sorting by cost per point moves four models and changes who reads as the winner.']]
+      'Tester': [['Tester', '45m ago', 'Four new models finished. Their logs are still on disk, so I am copying them now rather than after scoring.'], ['Tester', 'now', 'One run per model so far. Two models are within a point of each other, which is inside what a single run can swing.']],
+      'Analyzer': [['Analyzer', '45m ago', 'No model could read another. Two ran at the same time, in separate workspaces.'], ['Analyzer', 'now', 'One run has no saved log. I can still compute its number, but nobody could ever check it.']],
+      'Website Updater': [['Website Updater', '20m ago', 'Charts are current through the July runs.'], ['Website Updater', 'now', 'Ranking by score today. Ranking by cost per point moves four models and changes who comes first.']]
     }
   },
   prewave: {
@@ -76,13 +76,13 @@ var goals = {
           { label: 'The softer version', consequence: '“Onboarding is dramatically faster.” Ships today, harder to believe.' }
         ] },
       { id: 'w2', state: 'motion', stage: 'build', title: 'Add the Customer Y case study', note: 'Writing it from the pilot interview.', agent: 'Content Agent', progress: 55, since: '8m', eta: 'about 30m left',
-        why: 'The quote you approve becomes the headline of the study.' },
+        why: 'The quote you pick becomes the headline of the study.' },
       { id: 'w3', state: 'motion', stage: 'build', title: 'Refresh the homepage', note: 'Rebuilding the hero and feature blocks.', agent: 'Site Builder', progress: 40, since: '3m', eta: 'about 45m left',
-        why: 'It is the first thing anyone who hears about you will look at.' },
-      { id: 'w4', state: 'motion', stage: 'learn', title: 'Add the board of advisors to Team', note: 'Chasing four bios and headshots.', agent: 'Content Agent', progress: 25, since: '30m', eta: 'waiting on people',
+        why: 'It is the first thing anyone who hears about you looks at.' },
+      { id: 'w4', state: 'motion', stage: 'learn', title: 'Add the advisors to the Team page', note: 'Chasing four bios and headshots.', agent: 'Content Agent', progress: 25, since: '30m', eta: 'waiting on people',
         why: 'The Team page is the first one most investors open.' },
-      { id: 'w5', state: 'complete', stage: 'learn', title: 'Homepage copy rewrite', note: 'New hero line and subhead are live.', agent: 'Content Agent', progress: 100, since: '1h', proof: 'Homepage copy rewrite',
-        why: 'It fixed the page most visitors never read past.' }
+      { id: 'w5', state: 'complete', stage: 'learn', title: 'Rewrite the homepage copy', note: 'The new hero line and subhead are live.', agent: 'Content Agent', progress: 100, since: '1h', proof: 'Homepage copy rewrite',
+        why: 'Most visitors never read past this page.' }
     ],
     artifacts: {
       'Homepage copy rewrite': {
